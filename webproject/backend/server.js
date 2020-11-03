@@ -1,10 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const User = require('./models/users.schema');
 const app = express();
+
+const session = require('express-session');
+
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const userRouters=require('./routes/users.routes');
 const usersRouter = require('./routes/users.routes');
 mongoose.connect('mongodb://localhost:27017/webproject', {
     useNewUrlParser: true,
@@ -22,12 +23,21 @@ mongoose.connect('mongodb://localhost:27017/webproject', {
                     credentials: true
                 }));
                 app.use(bodyParser.json())
+    
+                app.use(session({
+                    secret: 'keyboard cat',
+                    resave: true,
+                    saveUninitialized: false,
+                    // cookie: { secure: true }
+                }));
+
                 app.use('/user',usersRouter);
+                
                 console.log("Server listening on port 5000...");
-                var newUser = new User({
-                    name: 'tanhng'
-                })
-                newUser.save();
+                // var newUser = new User({
+                //     name: 'tanhng'
+                // })
+                // newUser.save();
             }
         });
     }
