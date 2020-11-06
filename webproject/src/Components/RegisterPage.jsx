@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 //const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
 export default class RegisterPage extends Component {
@@ -103,6 +102,7 @@ export default class RegisterPage extends Component {
     // }
 
     render() {
+
         return (
             // <form onSubmit={this.handleFormSubmit}>
             //     <label htmlFor="fname">Name:</label><br />

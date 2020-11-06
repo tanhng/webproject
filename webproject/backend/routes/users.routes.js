@@ -103,4 +103,22 @@ usersRouter.post('/login', async(req, res) => {
     
 } )
 
+usersRouter.get('/logout' , (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            res.json({
+                success: false,
+                message: err.message
+            })
+        } else {
+            res.json({success: true});
+        }
+    });
+})
+
+usersRouter.post('/facebooklogin', (req, res) => {
+    const {userID, accessToken} = req.body;
+    console.log(name);
+})
+
 module.exports =usersRouter;

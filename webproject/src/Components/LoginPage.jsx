@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import FBLogin from './FacebookPage'
+
 
 export default class RegisterPage extends Component {
     constructor(props) {
@@ -49,8 +51,9 @@ export default class RegisterPage extends Component {
                 });
             } else {
                 //save data to localStorage
-                localStorage.setItem('myValueInLocalStorage',data.data);
+                localStorage.setItem('myValueInLocalStorage',data.data.email);
                 console.log("thanh cong");
+                window.location.href = "http://localhost:3000/";
             }
         } catch (err) {
             this.setState({
@@ -94,9 +97,12 @@ export default class RegisterPage extends Component {
                 </div>
 
                 <button type="submit" className="btn btn-dark btn-lg btn-block">Sign in</button>
+                
                 <p className="forgot-password text-right">
                     Forgot <a href="#">password?</a>
                 </p>
+
+                <FBLogin></FBLogin>
                 {this.state.errMessage ? (
                     <div className="alert alert-danger" role="alert">
                         {this.state.errMessage}
