@@ -10,7 +10,8 @@ import HomePage from '../src/Components/HomePage'
 import RegisterPage from '../src/Components/RegisterPage';
 import LoginPage from '../src/Components/LoginPage';
 import Header from '../src/Components/Header';
-
+import Products from '../src/Components/Products';
+import temp from '../src/Components/temp';
 function App() {
   return (<Router>
     {/* // <div className="App">
@@ -32,6 +33,8 @@ function App() {
           <Route exact path='/' component={HomePage} />
           <Route path='/register' component={RegisterPage} />
           <Route path='/login' component={LoginPage} />
+          <Route path='/products' component={Products} />
+          <Route path='/addItem' component={temp} />
         </Switch>
       </div>
     </div>

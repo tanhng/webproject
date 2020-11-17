@@ -32,7 +32,7 @@ usersRouter.post(('/register'), async (req, res) => {
                 success: false,
                 message: "Password  too short"
             });
-        } else {
+        } else { 
 
             // check email exist
             var data = await userModel.findOne({ email: req.body.email }).lean();
@@ -86,6 +86,7 @@ usersRouter.post('/login', async(req, res) => {
                 _id: data._id,
                 email: data.email
             }
+            console.log(req.session.currentUser);
             res.status(200).json({
                 success: true,
                 message: "Login Success",

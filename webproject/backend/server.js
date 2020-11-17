@@ -7,6 +7,7 @@ const session = require('express-session');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const usersRouter = require('./routes/users.routes');
+const productsRouter=require('./routes/products.routes');
 mongoose.connect('mongodb://localhost:27017/webproject', {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -32,7 +33,7 @@ mongoose.connect('mongodb://localhost:27017/webproject', {
                 }));
 
                 app.use('/user',usersRouter);
-                
+                app.use('/products',productsRouter);
                 console.log("Server listening on port 5000...");
                 // var newUser = new User({
                 //     name: 'tanhng'
