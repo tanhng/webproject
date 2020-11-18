@@ -12,6 +12,7 @@ import LoginPage from '../src/Components/LoginPage';
 import Header from '../src/Components/Header';
 import Products from '../src/Components/Products';
 import temp from '../src/Components/temp';
+import ViewItem from '../src/Components/ViewItem';
 function App() {
   return (<Router>
     {/* // <div className="App">
@@ -33,8 +34,9 @@ function App() {
           <Route exact path='/' component={HomePage} />
           <Route path='/register' component={RegisterPage} />
           <Route path='/login' component={LoginPage} />
-          <Route path='/products' component={Products} />
+          <Route  exact path='/products' component={Products} />
           <Route path='/addItem' component={temp} />
+          <Route exact path='/product/:id' component={ViewItem} />
         </Switch>
       </div>
     </div>
