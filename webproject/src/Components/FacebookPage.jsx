@@ -16,28 +16,29 @@ export default class RegisterPage extends Component {
 
 
 
-    responseFacebook = (response) => {
-        console.log(response)
-        axios({
-            method: "POST",
-            url: "http://localhost:5000/user/facebooklogin",
-            data: { userID: response.userID, accessToken: response.accessToken }
-        }).then(response => {
-            console.log("FaceBook login success, client side", response);
-        })
-    }
+    // responseFacebook = (response) => {
+    //     console.log(response)
+    //     axios({
+    //         method: "POST",
+    //         url: "http://localhost:5000/user/facebooklogin",
+    //         data: { userID: response.userID, accessToken: response.accessToken }
+    //     }).then(response => {
+    //         console.log("FaceBook login success, client side", response);
+    //     })
+    // }
 
     render() {
         return (
             <div>
-                <FacebookLogin
+                {/* <FacebookLogin
                     appId="2678016712451988"
                     autoLoad={false}
                     callback={this.responseFacebook}
                     icon="fa-facebook-square"
                     cssClass="fb-customisation"
                     textButton={'Continue with facebook'}
-                />
+                /> */}
+                <a href="http://localhost:5000/auth-fb/facebook" className="facebook-login">Login with <i className="fa fa-facebook" /></a>
             </div >
         )
     }
