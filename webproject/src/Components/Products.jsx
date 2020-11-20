@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from "react-router-dom";
 class Products extends Component {
 
   constructor(props) {
@@ -8,7 +9,7 @@ class Products extends Component {
       total: 0,
       data: [],
       detailModalVisible: false,
-		selectedPost: undefined,
+      selectedPost: undefined,
     }
   };
 
@@ -47,51 +48,58 @@ class Products extends Component {
   };
 
   handlePostClick = (selectedPost) => {
-		this.setState({
-			detailModalVisible: true,
-			selectedPost: selectedPost,
-		});
-	};
+    this.setState({
+      detailModalVisible: true,
+      selectedPost: selectedPost,
+    });
+  };
+
+  handleItemClick = (item) => {
+console.log('hello',item);
+var url='/product/'+item;
+window.location.href=url;
+  };
+
 
   handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
-        const data = await fetch("http://localhost:5000/products/viewDetail", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include',
-            body: JSON.stringify({
-                
-            }),
-        }).then((res) => { return res.json(); });
-        console.log('data frontend login', data);
+      const data = await fetch("http://localhost:5000/products/viewDetail", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+
+        }),
+      }).then((res) => { return res.json(); });
+      console.log('data frontend login', data);
+      this.setState({
+        email: '',
+        pass: '',
+      })
+      if (!data.success) {
         this.setState({
-            email: '',
-            pass: '',
-        })
-        if (!data.success) {
-            this.setState({
-                errMessage: data.message,
-            });
-        } else {
-            //save data to localStorage
-            localStorage.setItem('myValueInLocalStorage',data.data.email);
-            console.log("thanh cong");
-            window.location.href = "http://localhost:3000/";
-        }
+          errMessage: data.message,
+        });
+      } else {
+        //save data to localStorage
+        localStorage.setItem('myValueInLocalStorage', data.data.email);
+        console.log("thanh cong");
+        window.location.href = "http://localhost:3000/";
+      }
     } catch (err) {
-        this.setState({
-            errMessage: err.message
-        });
+      this.setState({
+        errMessage: err.message
+      });
     } finally {
-        this.setState({
-            loading: false
-        });
+      this.setState({
+        loading: false
+      });
     }
 
-}
+  }
 
   render() {
     return (
@@ -110,10 +118,29 @@ class Products extends Component {
 
           );
         })} */}
-        
-				{this.state.detailModalVisible ? (
-					<p>hello</p>
-				) : null}
+        <div class="list-group">
+          {
+            
+            this.state.data.map((item)=>{
+              return(
+
+              <div className="card" style={{width: '18rem'}}>
+        <div className="card-body">
+              <h5 className="card-title">${item._id}</h5>
+          <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
+          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <button type="button" class="btn btn-success" onClick={()=>this.handleItemClick(item._id)}>Gui</button>
+        </div>
+      </div>)
+            })
+          }
+        </div>
+
+
+
+        {this.state.detailModalVisible ? (
+          <p>hello</p>
+        ) : null}
       </div>
     );
   }
