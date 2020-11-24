@@ -1,10 +1,12 @@
 const express = require('express')
 const passport = require('passport')
 
-const userModel = require('../models/users.schema');
+
 const authFbRouter = express.Router();
 
-authFbRouter.get('/facebook', passport.authenticate('facebook'));
+authFbRouter.get('/facebook', passport.authenticate('facebook', {
+    scope: ['email']
+}));
 
 authFbRouter.get('/facebook/callback',
     passport.authenticate("facebook", {

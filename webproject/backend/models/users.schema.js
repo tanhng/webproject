@@ -3,7 +3,7 @@ const mongoose= require('mongoose');
 const usersSchema= new mongoose.Schema({
     name:{
         type: String,
-        required: true,
+        // required: true,
     },
     phonenumber:{
         type: String,
@@ -19,7 +19,7 @@ const usersSchema= new mongoose.Schema({
     },
     password:{
         type: String,
-        // required: true,
+        required: true,
     },
     
 })

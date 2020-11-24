@@ -35,7 +35,7 @@ usersRouter.post(('/register'), async (req, res) => {
         } else { 
 
             // check email exist
-            var data = await userModel.findOne({ email: req.body.email }).lean();
+            let data = await userModel.findOne({ email: req.body.email }).lean();
             if (data) {
                 res.status(400).json({
                     success: false,
@@ -115,11 +115,6 @@ usersRouter.get('/logout' , (req, res) => {
             res.json({success: true});
         }
     });
-})
-
-usersRouter.post('/facebooklogin', (req, res) => {
-    const {userID, accessToken} = req.body;
-    console.log(name);
 })
 
 module.exports =usersRouter;
