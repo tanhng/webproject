@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import FBLogin from './FacebookPage'
-
 
 export default class RegisterPage extends Component {
     constructor(props) {
@@ -97,12 +95,13 @@ export default class RegisterPage extends Component {
                 </div>
 
                 <button type="submit" className="btn btn-dark btn-lg btn-block">Sign in</button>
-                
+
                 <p className="forgot-password text-right">
                     Forgot <a href="#">password?</a>
                 </p>
 
-                <FBLogin></FBLogin>
+                <a href="http://localhost:5000/auth-fb/facebook" className="facebook-login">Login with facebook <i className="fa fa-facebook" /></a>
+
                 {this.state.errMessage ? (
                     <div className="alert alert-danger" role="alert">
                         {this.state.errMessage}
