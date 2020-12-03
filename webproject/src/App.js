@@ -13,6 +13,7 @@ import Header from '../src/Components/Header';
 import Products from '../src/Components/Products';
 import temp from '../src/Components/temp';
 import ViewItem from '../src/Components/ViewItem';
+import ConfirmOrder from './Components/ConfirmOrder';
 function App() {
   return (<Router>
     {/* // <div className="App">
@@ -37,6 +38,7 @@ function App() {
           <Route  exact path='/products' component={Products} />
           <Route path='/addItem' component={temp} />
           <Route exact path='/product/:id' component={ViewItem} />
+          <Route exact path='/confirmOrder' component={ConfirmOrder} />
         </Switch>
       </div>
     </div>

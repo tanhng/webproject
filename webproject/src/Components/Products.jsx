@@ -55,9 +55,9 @@ class Products extends Component {
   };
 
   handleItemClick = (item) => {
-console.log('hello',item);
-var url='/product/'+item;
-window.location.href=url;
+    console.log('hello', item);
+    var url = '/product/' + item;
+    window.location.href = url;
   };
 
 
@@ -85,7 +85,7 @@ window.location.href=url;
         });
       } else {
         //save data to localStorage
-        localStorage.setItem('myValueInLocalStorage', data.data.email);
+        localStorage.setItem('email', data.data.email);
         console.log("thanh cong");
         window.location.href = "http://localhost:3000/";
       }
@@ -120,18 +120,18 @@ window.location.href=url;
         })} */}
         <div class="list-group">
           {
-            
-            this.state.data.map((item)=>{
-              return(
 
-              <div className="card" style={{width: '18rem'}}>
-        <div className="card-body">
-              <h5 className="card-title">${item._id}</h5>
-          <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
-          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <button type="button" class="btn btn-success" onClick={()=>this.handleItemClick(item._id)}>Gui</button>
-        </div>
-      </div>)
+            this.state.data.map((item) => {
+              return (
+
+                <div className="card" style={{ width: '18rem' }}>
+                  <div className="card-body">
+                    <h5 className="card-title">${item._id}</h5>
+                    <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <button type="button" class="btn btn-success" onClick={() => this.handleItemClick(item._id)}>Gui</button>
+                  </div>
+                </div>)
             })
           }
         </div>
