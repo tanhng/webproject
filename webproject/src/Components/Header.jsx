@@ -24,7 +24,7 @@ export default class RegisterPage extends Component {
         }
     }
     render() {
-        let value = localStorage.getItem('myValueInLocalStorage'); 
+        let value = localStorage.getItem('email'); 
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
                 <div className="container">

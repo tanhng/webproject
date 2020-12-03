@@ -4,7 +4,7 @@ const bcryptjs = require('bcryptjs');
 const productModel = require('../models/products.schema');
 
 const productsRouter = express.Router();
-
+const userModel= require('../models/users.schema');
 productsRouter.post(('/addItem'), async (req, res) => {
     try {
         if (req.body.odometer < 0) {
@@ -82,6 +82,7 @@ productsRouter.get('/getItems', async (req, res) => {
 
 productsRouter.get('/getItemByID', async (req, res) => {
     try {
+        console.log('test10',)
         {
             productModel.findById(req.query.itemId,function(err,product){
                 if (err) {
@@ -92,7 +93,7 @@ productsRouter.get('/getItemByID', async (req, res) => {
                     );
                 }
                 else {
-                    console.log('user get cart ne',product);
+                    console.log('user get cart ne',req.query.itemId);
                     res.status(200).json({
                         success: true,
                         data:product,

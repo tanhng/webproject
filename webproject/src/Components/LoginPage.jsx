@@ -51,7 +51,7 @@ export default class RegisterPage extends Component {
                 });
             } else {
                 //save data to localStorage
-                localStorage.setItem('myValueInLocalStorage',data.data.email);
+                localStorage.setItem('email',data.data.email);
                 console.log("thanh cong");
                 window.location.href = "http://localhost:3000/";
             }

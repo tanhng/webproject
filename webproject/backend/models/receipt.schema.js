@@ -1,7 +1,7 @@
 const mongoose= require('mongoose');
 
 const receiptSchema= new mongoose.Schema({
-    user_id:{
+    userEmail:{
         type: String,
         required: true,
     },
@@ -17,7 +17,9 @@ const receiptSchema= new mongoose.Schema({
         type:Date,
         required:true,
     },
-
+    datereturn:{
+        type:Date,
+    },
     status:{
         type:Number,
         required:true,
