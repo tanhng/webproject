@@ -6,25 +6,25 @@ const receiptSchema= new mongoose.Schema({
         required: true,
     },
     car_id:{
-        type: Number,
+        type: String,
         required:true,
     },
-    datestart:{
+    dateStart:{
         type: Date,
         required:true,
-    },
-    datefinish:{
-        type:Date,
-        required:true,
-    },
-    datereturn:{
-        type:Date,
     },
     status:{
         type:Number,
         required:true,
     },
-    
+    soNgayThue:{
+        type: Number,
+        required:true,
+    },
+    soNgayThueThem:{
+        type: Number,
+        required:true,
+    },
     price:{
         type:Number,
         required:true,
