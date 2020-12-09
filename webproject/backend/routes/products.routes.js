@@ -22,6 +22,7 @@ productsRouter.post(('/addItem'), async (req, res) => {
             name: req.body.name,
             odometer: req.body.odometer,
             address: req.body.address,
+            imageUrl: req.body.imageUrl,
             color: req.body.color,
             status: 0,
             price: req.body.price,
@@ -55,10 +56,41 @@ productsRouter.post(('/addItem'), async (req, res) => {
 
 productsRouter.get('/getItems', async (req, res) => {
     try {
-        {
+    //     {
+    //         console.log('test 2');
+    //         // get data
+    //         const result = await productModel.find({})
+    //         console.log('result ne', result);
+    //         const total = await productModel.find({}).countDocuments();
+    //         console.log('total', total);
+    //         res.status(200).json({
+    //             success: true,
+    //             data: {
+    //                 data: result,
+    //                 total: total,
+    //             },
+    //         });
+    //         console.log('test 3');
+    //     }
+    // }
+    // catch (error) {
+    //     res.status(500).json({
+    //         success: false,
+    //         message: error.message,
+    //     })
+    // }
+  
+        console.log('test1');
+        // offset paging => pageNumber | pageSize => limit | skip
+        const pageNumber = Number(req.query.pageNumber);
+        const pageSize = Number(req.query.pageSize);
+ {
             console.log('test 2');
             // get data
             const result = await productModel.find({})
+                .skip((pageNumber - 1) * pageSize)
+                .limit(pageSize)
+                .lean();
             console.log('result ne', result);
             const total = await productModel.find({}).countDocuments();
             console.log('total', total);
@@ -76,7 +108,7 @@ productsRouter.get('/getItems', async (req, res) => {
         res.status(500).json({
             success: false,
             message: error.message,
-        })
+        });
     }
 });
 

@@ -12,6 +12,8 @@ import LoginPage from '../src/Components/LoginPage';
 import Header from '../src/Components/Header';
 import Products from '../src/Components/Products';
 import temp from '../src/Components/temp';
+import temp2 from '../src/Components/temp2';
+import temp3 from '../src/Components/temp3';
 import ViewItem from '../src/Components/ViewItem';
 import ConfirmOrder from './Components/ConfirmOrder';
 function App() {
@@ -37,6 +39,8 @@ function App() {
           <Route path='/login' component={LoginPage} />
           <Route  exact path='/products' component={Products} />
           <Route path='/addItem' component={temp} />
+          <Route path='/addItem2' component={temp2} />
+          <Route path='/addItem3' component={temp3} />
           <Route exact path='/product/:id' component={ViewItem} />
           <Route exact path='/confirmOrder' component={ConfirmOrder} />
         </Switch>

@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-
+const uploadRouter = require('./routes/upload.routes');
 const session = require('express-session');
 
 const cors = require('cors');
@@ -88,7 +88,7 @@ mongoose.connect('mongodb://localhost:27017/webproject', {
                 ));
 
                 
-
+                app.use('/upload',uploadRouter);
                 app.use('/auth-fb', authFbRouter);
                 app.use('/user',usersRouter);
                 app.use('/products',productsRouter);

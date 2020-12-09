@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
-
+const maxFileSize = 5000000;
+const imageFileRegex = /\.(gif|jpg|jpeg|tiff|png)$/i;
 export default class temp extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
             name: "",
+            imageUrl: '',
+            file: undefined,
             odometer: "",
             address: "",
             color: "",
@@ -17,6 +20,41 @@ export default class temp extends Component {
             loading: true,
         }
     };
+
+    handleFileChange = (event) => {
+        this.setState({
+            successmessage: '',
+        });
+        const file = event.target.files[0];
+        if (!imageFileRegex.test(file.name)) {
+            this.setState({
+                errormessage: 'invalid file',
+            });
+        }
+        else if (file.size > maxFileSize) {
+            this.setState({
+                errormessage: 'file is too large',
+            });
+
+        } else {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onload = () => {
+                //filereader.result
+                console.log(fileReader.result);
+                this.setState({
+                    errormessage: '',
+                    file: file,
+                    imageUrl: fileReader.result,
+                });
+            };
+
+        }
+
+    }
+
+
+
 
     handleChange = (event) => {
         this.setState({
@@ -37,20 +75,33 @@ export default class temp extends Component {
         //         errMessage: 'Password must be more than 6 characters'
         //     });
         // } else {
-        this.setState({
-            name: "",
-            odometer: "",
-            address: "",
-            color: "",
-            price:"",
-            dealerComments: "",
-            seats:"",
-            type:"",
-            errMessage: "",
-            loading: true,
-        });
+        // this.setState({
+        //     name: "",
+        //     odometer: "",
+        //     address: "",
+        //     color: "",
+        //     price:"",
+        //     dealerComments: "",
+        //     seats:"",
+        //     type:"",
+        //     errMessage: "",
+        //     loading: true,
+        // });
 
         try {
+            const formData = new FormData();
+            formData.append('image', this.state.file);
+            console.log(this.state.file);
+            const uploadResult = await fetch(`http://localhost:5000/upload/photos`, {
+                method: 'POST',
+                credentials: 'include',
+                body: formData,
+            }
+            )
+                .then((res) => {
+                    return res.json();
+                })
+            console.log(uploadResult);
             const data = await fetch("http://localhost:5000/products/addItem", {
                 method: "POST",
                 headers: {
@@ -58,6 +109,7 @@ export default class temp extends Component {
                 },
                 credentials: "include",
                 body: JSON.stringify({
+                    imageUrl: uploadResult.data,
                     name: this.state.name,
                     odometer: this.state.odometer,
                     address: this.state.address,
@@ -116,7 +168,21 @@ export default class temp extends Component {
                     <label>Name</label>
                     <input type="text" className="form-control" name="name" value={this.state.name} onChange={this.handleChange} required />
                 </div>
+                <input
+                                id='file'
+                                type='file'
+                                className='form-control'
+                                accept="image/*"
+                                style={{
+                                    color: 'transparent',
+                                    margin: `0 auto`,
+                                    textIndent: `-999em`,
+                                    zIndex: 10,
+                                    height: `50px`
+                                }}
 
+                                onChange={this.handleFileChange}
+                            />
                 <div className="form-group">
                     <label>Odometer</label>
                     <input type="text" className="form-control" name="odometer" value={this.state.odometer} onChange={this.handleChange} required />
