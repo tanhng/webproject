@@ -30,9 +30,9 @@ function App() {
     //     </div>
     //   </Router>
     // </div> */}
-    <Header></Header>
+    {/* <Header></Header>
     <div className="outer">
-      <div className="inner">
+      <div className="inner"> */}
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route path='/register' component={RegisterPage} />
@@ -44,8 +44,8 @@ function App() {
           <Route exact path='/product/:id' component={ViewItem} />
           <Route exact path='/confirmOrder' component={ConfirmOrder} />
         </Switch>
-      </div>
-    </div>
+      {/* </div>
+    </div> */}
   </Router>
   );
 }

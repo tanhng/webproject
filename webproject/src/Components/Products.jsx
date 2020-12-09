@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
+const pageSize = 6;
 class Products extends Component {
 
   constructor(props) {
@@ -10,21 +11,22 @@ class Products extends Component {
       data: [],
       detailModalVisible: false,
       selectedPost: undefined,
+      currentPageNumber: 1,
     }
   };
 
-  componentWillMount() {
-    this.getData();
+  componentDidMount() {
+    this.getData(1);
   }
 
 
 
 
 
-  getData = async () => {
+  getData = async (pageNumber) => {
     try {
       const result = await fetch(
-        `http://localhost:5000/products/getItems`,
+        `http://localhost:5000/products/getItems?pageNumber=${pageNumber}&pageSize=${pageSize}`,
         {
           method: 'GET',
           headers: {
@@ -101,24 +103,29 @@ class Products extends Component {
 
   }
 
+
+	handlePageChange = newPageNumber => {
+		// call getData
+		this.getData(newPageNumber);
+
+		// setState currentPageNumber
+		this.setState({
+			currentPageNumber: newPageNumber
+		});
+	};
+
+
   render() {
+    const maxPageNumber = Math.ceil(this.state.total / pageSize);
+		const paginations = [];
+		for (let i = 0; i < maxPageNumber; i ++) {
+			paginations.push(i + 1);
+		}
     return (
       <div>
-        {/* {this.state.data.map(item => {
-          console.log("test4", item);
-          return (
-            <form onSubmit={this.handleFormSubmit}>
-              <p>{item.name}</p>
-              <a href="#" onClick={() => this.handlePostClick(item)} className="btn btn-primary">
-											Detail
-										</a>
-            </form>
+      <div>
 
-
-
-          );
-        })} */}
-        <div class="list-group">
+        {/* <div class="list-group">
           {
 
             this.state.data.map((item) => {
@@ -134,14 +141,108 @@ class Products extends Component {
                 </div>)
             })
           }
-        </div>
+        </div> */}
+
+<div className="row">
+					{this.state.data.map(item => {
+						console.log(item);
+						return (
+							<div className="col-4 mt-4" key={item._id}>
+								<div className="card">
+									<div
+										className="card-img-top"
+
+										style={{
+											backgroundImage: `url(http://localhost:5000${item.imageUrl})`,
+											backgroundSize: 'cover',
+											backgroundPosition: 'center',
+											backgroundRepeat: 'no-repeate',
+											height: '350px',
+											width: 'auto',
+											margin: '10px',
+											padding: '20px'
+										}}
+									></div>
 
 
+
+									<div className="card-body">
+										<h5 className="card-title">{item.name}</h5>
+										<h5 className="card-title" style={{ color: 'lightgrey' }}>{item.price}đ</h5>
+										<p
+											className="card-text"
+											style={{
+												height: '50px',
+												textOverflow: 'ellipsis',
+												overflow: 'hidden'
+											}}
+										>
+											
+											{item.name}
+										</p>
+										<a href="#" onClick={() => this.handlePostClick(item)} className="btn btn-primary">
+											Detail
+										</a>
+									</div>
+								</div>
+							</div>
+						);
+					})}
+				</div>
 
         {this.state.detailModalVisible ? (
           <p>hello</p>
         ) : null}
       </div>
+      <nav aria-label="Page navigation example">
+      <ul
+        className="pagination"
+        style={{ float: 'right', marginTop: '30px', marginBottom: '30px' }}
+      >
+        <li className="page-item">
+          <a
+            className="page-link"
+            aria-label="Previous"
+            onClick={this.handlePrevClick}
+          >
+            <span aria-hidden="true">&laquo;</span>
+            <span className="sr-only">Previous</span>
+          </a>
+        </li>
+        {paginations.map(item => {
+          const isActive = item === this.state.currentPageNumber;
+          let classNameValue = '';
+          if (isActive) {
+            classNameValue = 'page-item active';
+          } else {
+            classNameValue = 'page-item';
+          }
+          return (
+            <li className={classNameValue} key={item}>
+              <a
+                className="page-link"
+                onClick={() => {
+                  this.handlePageChange(item);
+                }}
+              >
+                {item}
+              </a>
+            </li>
+          );
+        })}
+        <li className="page-item">
+          <a
+            className="page-link"
+            aria-label="Next"
+            onClick={this.handleNextClick}
+          >
+            <span aria-hidden="true">&raquo;</span>
+            <span className="sr-only">Next</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+</div>
     );
   }
 }

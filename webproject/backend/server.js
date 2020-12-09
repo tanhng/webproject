@@ -35,7 +35,7 @@ mongoose.connect('mongodb://localhost:27017/webproject', {
                 }));
 
                 app.use(bodyParser.json())
-
+                app.use(express.static('public'));
 
                 app.use(session({
                     secret: 'keyboard cat',
