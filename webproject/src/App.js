@@ -15,7 +15,12 @@ import temp from '../src/Components/temp';
 import temp2 from '../src/Components/temp2';
 import temp3 from '../src/Components/temp3';
 import ViewItem from '../src/Components/ViewItem';
+import ViewOrders from '../src/Components/ViewOrders';
 import ConfirmOrder from './Components/ConfirmOrder';
+import FinishPurchase from './Components/FinishPurchase';
+import Purchase from './Components/Purchase';
+import EditCar from './Components/EditCar';
+import FinishEdit from './Components/FinishEdit';
 function App() {
   return (<Router>
     {/* // <div className="App">
@@ -30,7 +35,7 @@ function App() {
     //     </div>
     //   </Router>
     // </div> */}
-    {/* <Header></Header>
+     {/* <Header></Header>
     <div className="outer">
       <div className="inner"> */}
         <Switch>
@@ -40,9 +45,14 @@ function App() {
           <Route  exact path='/products' component={Products} />
           <Route path='/addItem' component={temp} />
           <Route path='/addItem2' component={temp2} />
-          <Route path='/addItem3' component={temp3} />
+          <Route path='/addItem3/:id' component={temp3} />
+          <Route path='/viewOrders' component={ViewOrders} />
+          <Route path='/purchase' component={Purchase} />
           <Route exact path='/product/:id' component={ViewItem} />
+          <Route exact path='/receipt/:id' component={FinishPurchase} />
           <Route exact path='/confirmOrder' component={ConfirmOrder} />
+          <Route exact path='/editcar' component={EditCar} />
+          <Route exact path='/finishedit/:id' component={FinishEdit} />
         </Switch>
       {/* </div>
     </div> */}

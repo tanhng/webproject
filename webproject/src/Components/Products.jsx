@@ -44,11 +44,11 @@ class Products extends Component {
         data: result.data.data
       });
       console.log('test3', this.state.data[0]);
-    } catch (error) {
+    } catch (error) { 
       window.alert(error.message);
     }
   };
-
+ 
   handlePostClick = (selectedPost) => {
     this.setState({
       detailModalVisible: true,
@@ -180,7 +180,7 @@ class Products extends Component {
 											
 											{item.name}
 										</p>
-										<a href="#" onClick={() => this.handlePostClick(item)} className="btn btn-primary">
+										<a href="#" onClick={() => this.handleItemClick(item._id)} className="btn btn-primary">
 											Detail
 										</a>
 									</div>

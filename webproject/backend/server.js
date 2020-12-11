@@ -16,7 +16,7 @@ const userModel = require('./models/users.schema');
 const usersRouter = require('./routes/users.routes');
 const productsRouter = require('./routes/products.routes');
 const authFbRouter = require('./routes/auth-fb.routes');
-
+const adminRouter = require('./routes/admin.routes');
 const receiptsRouter=require('./routes/receipt.routes');
 mongoose.connect('mongodb://localhost:27017/webproject', {
     useNewUrlParser: true,
@@ -87,7 +87,7 @@ mongoose.connect('mongodb://localhost:27017/webproject', {
                     }
                 ));
 
-                
+                app.use('/admin',adminRouter);
                 app.use('/upload',uploadRouter);
                 app.use('/auth-fb', authFbRouter);
                 app.use('/user',usersRouter);

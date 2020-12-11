@@ -4,7 +4,7 @@ const bcryptjs = require('bcryptjs');
 const productModel = require('../models/products.schema');
 
 const productsRouter = express.Router();
-const userModel= require('../models/users.schema');
+const userModel = require('../models/users.schema');
 productsRouter.post(('/addItem'), async (req, res) => {
     try {
         if (req.body.odometer < 0) {
@@ -49,6 +49,75 @@ productsRouter.post(('/addItem'), async (req, res) => {
 })
 
 
+productsRouter.post(('/updateItem'), async (req, res) => {
+    try {
+        if (req.body.odometer < 0) {
+            res.status(400).json({
+                success: false,
+                message: "Odometer must be greater or equal to 0",
+            });
+        } else if (req.body.price < 0) {
+            res.status(400).json({
+                success: false,
+                message: "Price must be greater or equal to 0",
+            });
+        }
+        productModel.findById(req.body.currentID, function (err, product) {
+            if (err) {
+                res.status(500).json({
+                    success: false,
+                    message: err.message,
+                }
+                );
+            }
+            else if (product.status == 1) {
+                res.status(400).json({
+                    success: false,
+                    message: "Xe dang cho thue ",
+                });
+            }
+            else {
+                productModel.findByIdAndUpdate(req.body.currentID,
+                    { "name": req.body.name ,
+                     "odometer": req.body.odometer ,
+                     "address": req.body.address ,
+                     "imageUrl": req.body.imageUrl ,
+                    "color": req.body.color,
+                    "status": 0,
+                    "price": req.body.price,
+                    "soLanThue": 0,
+                    "dealerComments": req.body.dealerComments,
+                    "stars": 0,
+                    "seats": req.body.seats,
+                    "type": req.body.type},
+                    function (err2, result) {
+
+                        if (err2) {
+                            res.status(500).json({
+                                success: false,
+                                message: err2.message
+                            });
+                        }
+                        else {
+                            res.status(200).json({
+                                success: true,
+                            });
+                        }
+
+                    })
+            }
+        })
+
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+})
+
+
 
 
 
@@ -56,35 +125,35 @@ productsRouter.post(('/addItem'), async (req, res) => {
 
 productsRouter.get('/getItems', async (req, res) => {
     try {
-    //     {
-    //         console.log('test 2');
-    //         // get data
-    //         const result = await productModel.find({})
-    //         console.log('result ne', result);
-    //         const total = await productModel.find({}).countDocuments();
-    //         console.log('total', total);
-    //         res.status(200).json({
-    //             success: true,
-    //             data: {
-    //                 data: result,
-    //                 total: total,
-    //             },
-    //         });
-    //         console.log('test 3');
-    //     }
-    // }
-    // catch (error) {
-    //     res.status(500).json({
-    //         success: false,
-    //         message: error.message,
-    //     })
-    // }
-  
+        //     {
+        //         console.log('test 2');
+        //         // get data
+        //         const result = await productModel.find({})
+        //         console.log('result ne', result);
+        //         const total = await productModel.find({}).countDocuments();
+        //         console.log('total', total);
+        //         res.status(200).json({
+        //             success: true,
+        //             data: {
+        //                 data: result,
+        //                 total: total,
+        //             },
+        //         });
+        //         console.log('test 3');
+        //     }
+        // }
+        // catch (error) {
+        //     res.status(500).json({
+        //         success: false,
+        //         message: error.message,
+        //     })
+        // }
+
         console.log('test1');
         // offset paging => pageNumber | pageSize => limit | skip
         const pageNumber = Number(req.query.pageNumber);
         const pageSize = Number(req.query.pageSize);
- {
+        {
             console.log('test 2');
             // get data
             const result = await productModel.find({})
@@ -116,7 +185,39 @@ productsRouter.get('/getItemByID', async (req, res) => {
     try {
         console.log('test10',)
         {
-            productModel.findById(req.query.itemId,function(err,product){
+            productModel.findById(req.query.itemId, function (err, product) {
+                if (err) {
+                    res.status(500).json({
+                        success: false,
+                        message: err.message,
+                    }
+                    );
+                }
+                else {
+                    console.log('user get cart ne', req.query.itemId);
+                    res.status(200).json({
+                        success: true,
+                        data: product,
+                    });
+                }
+            })
+        }
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        })
+    }
+});
+
+
+productsRouter.post('/getItemsByName', async (req, res) => {
+    try {
+        console.log('test10',)
+        {
+
+            productModel.find({ name: { $regex: '.*' + req.body.car + '.*' } }, function (err, product) {
                 if (err) {
                     res.status(500).json({
                         success: false,
@@ -125,13 +226,13 @@ productsRouter.get('/getItemByID', async (req, res) => {
                     );
                 }
                 else {
-                    console.log('user get cart ne',req.query.itemId);
+                    console.log('user get cart ne', product);
                     res.status(200).json({
                         success: true,
-                        data:product,
+                        data: product,
                     });
                 }
-             })
+            })
         }
     }
     catch (error) {

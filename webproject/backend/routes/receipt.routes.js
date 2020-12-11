@@ -61,17 +61,20 @@ receiptsRouter.post(('/createReceipt'), async (req, res) => {
                         productModel.findByIdAndUpdate(req.body.productID, { "status": 1 }, function (err, result) {
 
                             if (err) {
-                                res.send(err)
+                                res.status(500).json({
+                                    success: false,
+                                    message: err.message
+                                });
                             }
                             else {
-                                res.send(result)
+                                res.status(200).json({
+                                    success: true,
+                                }); 
                             }
 
                         })
                         console.log("new ");
-                        res.status(200).json({
-                            success: true,
-                        });
+
 
                     }
                 }
@@ -86,7 +89,72 @@ receiptsRouter.post(('/createReceipt'), async (req, res) => {
     }
 })
 
+receiptsRouter.get('/getOrders', async (req, res) => {
+    try {
+        {
+            
+            console.log('test 2',req.session.currentUser.email);
+            // get data
+          
+            receiptModel.find({ userEmail: req.session.currentUser.email}, function (err, docs) {
+                if (err){
+                    res.status(500).json({
+                        success: false,
+                        message: error.message,
+                    });
+                } else{
+                    console.log('result ne', docs);
+                    res.status(200).json({
+                        success: true,
+                        data: {
+                            data: docs,
+                            total: docs.length,
+                        },
+                    });
+                }
+            });
 
+       
+        }
+    
+    // catch (error) {
+    //     res.status(500).json({
+    //         success: false,
+    //         message: error.message,
+    //     })
+    // }
+  
+//         console.log('test1');
+//         // offset paging => pageNumber | pageSize => limit | skip
+//         const pageNumber = Number(req.query.pageNumber);
+//         const pageSize = Number(req.query.pageSize);
+//  {
+//             console.log('test 2');
+//             // get data
+//             const result = await productModel.find({})
+//                 .skip((pageNumber - 1) * pageSize)
+//                 .limit(pageSize)
+//                 .lean();
+//             console.log('result ne', result);
+//             const total = await productModel.find({}).countDocuments();
+//             console.log('total', total);
+//             res.status(200).json({
+//                 success: true,
+//                 data: {
+//                     data: result,
+//                     total: total,
+//                 },
+//             });
+//             console.log('test 3');
+//         }
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+});
 
 receiptsRouter.post(('/getInfoOrder'), async (req, res) => {
     try {
@@ -131,6 +199,36 @@ receiptsRouter.post(('/getInfoOrder'), async (req, res) => {
             message: error.message,
         })
     }
-})
+});
+
+receiptsRouter.get('/getReceiptsByID', async (req, res) => {
+    try {
+        console.log('test100',)
+        {
+           receiptModel.findById(req.query.itemId,function(err,receipt){
+                if (err) {
+                    res.status(500).json({
+                        success: false,
+                        message: error.message,
+                    }
+                    );
+                }
+                else {
+                    console.log('user get cart ne 10000',req.query.itemId);
+                    res.status(200).json({
+                        success: true,
+                        data:receipt,
+                    });
+                }
+             })
+        }
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        })
+    }
+});
 
 module.exports = receiptsRouter;
