@@ -526,7 +526,7 @@ export default class temp2 extends Component {
                                 <li className="product_mark product_discount">-25%</li>
                                 <li className="product_mark product_new">new</li>
                               </ul>
-                              <a href="#" onClick={() => this.handleItemClick(item._id)} className="btn btn-primary">
+                              <a onClick={() => this.handleItemClick(item._id)} className="btn btn-primary">
 											Detail
 										</a>
                             </div>

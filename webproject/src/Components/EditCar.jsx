@@ -374,41 +374,36 @@ class EditCar extends Component {
          <button type='submit'>search</button>
          </form> */}
         <div class="list-group">
-          {
 
-            this.state.data.map((item) => {
-              return (
-
-                // <div className="card" style={{ width: '18rem' }}>
-                //   <div className="card-body">
-                //     <h5 className="card-title">${item.name}</h5>
-                //     <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                //     <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                //     {item.status == 0 ? (
-                //       <button type="button" class="btn btn-success" onClick={() => this.handleButtonClick(item._id)}>Gui</button>
-                //     ) : null}
-                //   </div>
-                // </div>
-                <div className="product_item is_new"
-                  style={{
-                    margin: '20px',
-                    padding: '20px',
-                  }}
-                >
-                  <div className="product_border" />
-                  <div className="product_content">
-                    <div className="product_price">${item.price}</div>
-                    <div className="product_name"><div><a href="#" tabIndex={0}>${item.name}</a></div></div>
-                  </div>
-                  <div className="product_fav"><i className="fas fa-heart" /></div>
-                  {item.status == 0 ? (
+          <div className="row">
+           {this.state.data.map(item => {
+                          console.log(item);
+                          let url = `http://localhost:5000${item.imageUrl}`;
+                          return (
+                            <div className="product_item is_new"
+                              style={{
+                                margin: '20px',
+                                padding: '20px',
+                              }}
+                            >
+                              <div className="product_border" />
+                              <div className="product_image d-flex flex-column align-items-center justify-content-center"><img src={url} alt="" /></div>
+                              <div className="product_content">
+                                <div className="product_price">$225</div>
+                                <div className="product_name"><div><a href="#" tabIndex={0}>Philips BT6900A</a></div></div>
+                              </div>
+                              <div className="product_fav"><i className="fas fa-heart" /></div>
+                              <ul className="product_marks">
+                                <li className="product_mark product_discount">-25%</li>
+                                <li className="product_mark product_new">new</li>
+                              </ul>
+                              {item.status == 0 ? (
                       <button type="button" class="btn btn-success" onClick={() => this.handleButtonClick(item._id)}>Gui</button>
                     ) : null}
-                </div>
-
-              )
-            })
-          }
+                            </div>
+                          );
+                        })}
+                        </div>
         </div>
       </div>
 
