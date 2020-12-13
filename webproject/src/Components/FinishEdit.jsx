@@ -25,17 +25,36 @@ export default class temp extends Component {
 
 
     componentWillMount() {
-        this.getData();
+        if (localStorage.getItem('email')) {
+            this.getData();
+        }
+        else {
+            window.location.href = "/login";
+        }
     }
 
 
-
-
-
-
     getData = async () => {
-        console.log("test url", window.location.href);
-        console.log("test2", window.location.href.slice(33));
+        try {
+            const result = await fetch(`http://localhost:5000/admin/checkMailAdmin`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    adminEmail: localStorage.getItem('email'),
+                }),
+            }).then(res => {
+                return res.json();
+            });
+            if (!result.success) {
+                window.alert(result.message);
+                window.location.href = "/login";
+            }
+        } catch (error) {
+            window.alert(error.message);
+        };
         let url = window.location.href.slice(33);
         this.setState({
             currentID: url,
@@ -222,7 +241,7 @@ export default class temp extends Component {
             //                     </div>
             //                 ) : null}
             // </form>
- 
+
             <div>
                 <div className="super_container">
                     {/* Header */}
@@ -528,15 +547,15 @@ export default class temp extends Component {
                     <br />
                 </div>
                 <div className="col-lg-10 push-lg-4 personal-info">
-                    <form role="form"  onSubmit={this.handleFormSubmit} >
+                    <form role="form" onSubmit={this.handleFormSubmit} >
                         <div className="form-group row" >
-                            <label style={{fontSize: '16px', marginLeft: '15%'}} className= "col-lg-2 col-form-label form-control-label">Name</label>
+                            <label style={{ fontSize: '16px', marginLeft: '15%' }} className="col-lg-2 col-form-label form-control-label">Name</label>
                             <div className="col-lg-7" >
-                                <input  style={{fontSize: '16px'}} className="form-control " type="text" name="name" value={this.state.name} onChange={this.handleChange} required />
+                                <input style={{ fontSize: '16px' }} className="form-control " type="text" name="name" value={this.state.name} onChange={this.handleChange} required />
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label style={{fontSize: '16px', marginLeft: '15%'}} className="col-lg-2 col-form-label form-control-label">Image</label>
+                            <label style={{ fontSize: '16px', marginLeft: '15%' }} className="col-lg-2 col-form-label form-control-label">Image</label>
                             <div className="col-lg-7">
                                 <input className="form-control"
                                     id='file'
@@ -556,51 +575,51 @@ export default class temp extends Component {
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label style={{fontSize: '16px', marginLeft: '15%'}} className="col-lg-2 col-form-label form-control-label">Odometer</label>
+                            <label style={{ fontSize: '16px', marginLeft: '15%' }} className="col-lg-2 col-form-label form-control-label">Odometer</label>
                             <div className="col-lg-7">
-                                <input style={{fontSize: '16px'}}className="form-control" name="odometer" value={this.state.odometer} onChange={this.handleChange} required/>
+                                <input style={{ fontSize: '16px' }} className="form-control" name="odometer" value={this.state.odometer} onChange={this.handleChange} required />
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label style={{fontSize: '16px', marginLeft: '15%'}} className="col-lg-2 col-form-label form-control-label">address</label>
+                            <label style={{ fontSize: '16px', marginLeft: '15%' }} className="col-lg-2 col-form-label form-control-label">address</label>
                             <div className="col-lg-7">
-                                <input style={{fontSize: '16px'}}className="form-control" name="address" value={this.state.address} onChange={this.handleChange} required/>
+                                <input style={{ fontSize: '16px' }} className="form-control" name="address" value={this.state.address} onChange={this.handleChange} required />
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label style={{fontSize: '16px', marginLeft: '15%'}} className="col-lg-2 col-form-label form-control-label">Color</label>
+                            <label style={{ fontSize: '16px', marginLeft: '15%' }} className="col-lg-2 col-form-label form-control-label">Color</label>
                             <div className="col-lg-7">
-                                <input style={{fontSize: '16px'}}className="form-control" name="color" value={this.state.color} onChange={this.handleChange} required />
+                                <input style={{ fontSize: '16px' }} className="form-control" name="color" value={this.state.color} onChange={this.handleChange} required />
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label style={{fontSize: '16px', marginLeft: '15%'}} className="col-lg-2 col-form-label form-control-label">Price</label>
+                            <label style={{ fontSize: '16px', marginLeft: '15%' }} className="col-lg-2 col-form-label form-control-label">Price</label>
                             <div className="col-lg-7">
-                                <input style={{fontSize: '16px'}}className="form-control" name="price" value={this.state.price} onChange={this.handleChange} required />
+                                <input style={{ fontSize: '16px' }} className="form-control" name="price" value={this.state.price} onChange={this.handleChange} required />
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label style={{fontSize: '16px', marginLeft: '15%'}} className="col-lg-2 col-form-label form-control-label">DealerComments</label>
+                            <label style={{ fontSize: '16px', marginLeft: '15%' }} className="col-lg-2 col-form-label form-control-label">DealerComments</label>
                             <div className="col-lg-7">
-                                <input style={{fontSize: '16px'}}className="form-control" name="dealerComments" value={this.state.dealerComments} onChange={this.handleChange} required />
+                                <input style={{ fontSize: '16px' }} className="form-control" name="dealerComments" value={this.state.dealerComments} onChange={this.handleChange} required />
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label style={{fontSize: '16px', marginLeft: '15%'}} className="col-lg-2 col-form-label form-control-label">Seat</label>
+                            <label style={{ fontSize: '16px', marginLeft: '15%' }} className="col-lg-2 col-form-label form-control-label">Seat</label>
                             <div className="col-lg-7">
-                                <input style={{fontSize: '16px'}}className="form-control" name="seats" value={this.state.seats} onChange={this.handleChange} required />
+                                <input style={{ fontSize: '16px' }} className="form-control" name="seats" value={this.state.seats} onChange={this.handleChange} required />
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label style={{fontSize: '16px', marginLeft: '15%'}} className="col-lg-2 col-form-label form-control-label">Type</label>
+                            <label style={{ fontSize: '16px', marginLeft: '15%' }} className="col-lg-2 col-form-label form-control-label">Type</label>
                             <div className="col-lg-7">
-                                <input style={{fontSize: '16px'}}className="form-control" name="type" value={this.state.type} onChange={this.handleChange} required />
+                                <input style={{ fontSize: '16px' }} className="form-control" name="type" value={this.state.type} onChange={this.handleChange} required />
                             </div>
                         </div>
                         <div className="form-group row">
                             <label className="col-lg-5 col-form-label form-control-label" />
                             <div className="col-lg-5">
-                                <button style={{fontSize: '16px'}}type="submit" className="btn btn-primary btn-lg btn-block" defaultValue="Save Changes">Submit</button>
+                                <button style={{ fontSize: '16px' }} type="submit" className="btn btn-primary btn-lg btn-block" defaultValue="Save Changes">Submit</button>
                             </div>
                             {this.state.errMessage ? (
                                 <div className="alert alert-danger" role="alert">

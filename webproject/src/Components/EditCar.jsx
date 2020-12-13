@@ -12,6 +12,38 @@ class EditCar extends Component {
     }
   };
 
+  componentWillMount() {
+    if (localStorage.getItem('email')) {
+      this.getData();
+    }
+    else {
+      window.location.href = "/login";
+    }
+  }
+
+  getData = async () => {
+    try {
+      const result = await fetch(`http://localhost:5000/admin/checkMailAdmin`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          adminEmail: localStorage.getItem('email'),
+        }),
+      }).then(res => {
+        return res.json();
+      });
+      if (!result.success) {
+        window.alert(result.message);
+        window.location.href = "/login";
+      }
+    } catch (error) {
+      window.alert(error.message);
+    }
+  };
+
 
   handleCarChange = (event) => {
     this.setState({

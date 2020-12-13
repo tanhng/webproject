@@ -22,7 +22,9 @@ import Purchase from './Components/Purchase';
 import EditCar from './Components/EditCar';
 import FinishEdit from './Components/FinishEdit';
 function App() {
-  return (<Router>
+  return (
+
+  <Router>
     {/* // <div className="App">
     //   <Router>
 
@@ -38,6 +40,7 @@ function App() {
      {/* <Header></Header>
     <div className="outer">
       <div className="inner"> */}
+      <Header></Header>
         <Switch>
           <Route exact path='/' component={HomePage} />
           {/* oke */}

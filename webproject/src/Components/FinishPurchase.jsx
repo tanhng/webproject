@@ -13,14 +13,37 @@ class FinishPurchase extends Component {
     };
 
     componentWillMount() {
-        this.getData();
+        if (localStorage.getItem('email')) {
+            this.getData();
+        }
+        else {
+            window.location.href = "/login";
+        }
     }
 
 
 
     getData = async () => {
-        console.log("test url", window.location.href);
-        console.log("test2", window.location.href.slice(30));
+        try {
+            const result = await fetch(`http://localhost:5000/admin/checkMailAdmin`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    adminEmail: localStorage.getItem('email'),
+                }),
+            }).then(res => {
+                return res.json();
+            });
+            if (!result.success) {
+                window.alert(result.message);
+                window.location.href = "/login";
+            }
+        } catch (error) {
+            window.alert(error.message);
+        };
         let url = window.location.href.slice(30);
         this.setState({
             currentID: url,

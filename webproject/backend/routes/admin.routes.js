@@ -5,6 +5,29 @@ const userModel = require('../models/users.schema');
 const receiptModel = require('../models/receipt.schema');
 const adminRouter = express.Router();
 
+adminRouter.post(('/checkMailAdmin'), async (req, res) => {
+    console.log('req',req.body);
+    try {
+        var data = await userModel.findOne({ email: req.body.adminEmail }).lean();
+        if (data.role == 0) {
+            res.status(400).json({
+                success: false,
+                message: "You are not admin"
+            });
+        } else {
+            res.status(200).json({
+                success: true,
+                message: "Success",
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+})
+
 adminRouter.post(('/getOrders'), (req, res) => {
     console.log('req', req.body);
     let imageUrlArray=new Array();

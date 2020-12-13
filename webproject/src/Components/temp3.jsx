@@ -16,8 +16,8 @@ export default class temp3 extends Component {
   }
 
   getData = async () => {
-    console.log("test url", window.location.href);
-    console.log("test2", window.location.href.slice(31));
+    // console.log("test url", window.location.href);
+    // console.log("test2", window.location.href.slice(31));
     let url = window.location.href.slice(31);
     this.setState({
       currentID: url,
