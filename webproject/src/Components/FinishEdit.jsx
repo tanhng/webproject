@@ -222,7 +222,7 @@ export default class temp extends Component {
             //                     </div>
             //                 ) : null}
             // </form>
-
+ 
             <div>
                 <div className="super_container">
                     {/* Header */}
@@ -558,7 +558,7 @@ export default class temp extends Component {
                         <div className="form-group row">
                             <label style={{fontSize: '16px', marginLeft: '15%'}} className="col-lg-2 col-form-label form-control-label">Odometer</label>
                             <div className="col-lg-7">
-                                <input style={{fontSize: '16px'}}className="form-control" value={this.state.odometer} onChange={this.handleChange} required/>
+                                <input style={{fontSize: '16px'}}className="form-control" name="odometer" value={this.state.odometer} onChange={this.handleChange} required/>
                             </div>
                         </div>
                         <div className="form-group row">

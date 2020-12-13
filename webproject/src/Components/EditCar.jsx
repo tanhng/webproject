@@ -65,7 +65,7 @@ class EditCar extends Component {
     window.location.href = url;
   };
 
-
+ 
 
   render() {
 
@@ -365,7 +365,7 @@ class EditCar extends Component {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> 
             </div>
           </header>
         </div>

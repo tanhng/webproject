@@ -40,12 +40,18 @@ function App() {
       <div className="inner"> */}
         <Switch>
           <Route exact path='/' component={HomePage} />
+          {/* oke */}
           <Route path='/register' component={RegisterPage} />
+          {/* oke */}
           <Route path='/login' component={LoginPage} />
+          {/* oke */}
           <Route  exact path='/products' component={Products} />
+          {/* oke */}
           <Route path='/addItem' component={temp} />
-          <Route path='/addItem2' component={temp2} />
+          {/* <Route path='/addItem2' component={temp2} /> */}
+          {/* oke */}
           <Route path='/addItem3/:id' component={temp3} />
+          
           <Route path='/viewOrders' component={ViewOrders} />
           <Route path='/purchase' component={Purchase} />
           <Route exact path='/product/:id' component={ViewItem} />
@@ -57,7 +63,7 @@ function App() {
       {/* </div>
     </div> */}
   </Router>
-  );
+  ); 
 }
 
 export default App;

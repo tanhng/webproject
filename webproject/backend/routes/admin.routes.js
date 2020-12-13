@@ -7,7 +7,8 @@ const adminRouter = express.Router();
 
 adminRouter.post(('/getOrders'), (req, res) => {
     console.log('req', req.body);
-
+    let imageUrlArray=new Array();
+    imageUrlArray.push("1");
     receiptModel.find({ userEmail: req.body.email }, function (err, docs) {
         if (err) {
             res.status(500).json({
@@ -15,12 +16,41 @@ adminRouter.post(('/getOrders'), (req, res) => {
                 message: error.message,
             });
         } else {
+            
             console.log('result ne', docs);
+            docs.map(item => {
+                console.log("item id",item.car_id);
+                productModel.findById(item.car_id, function (err, product) {
+                    if (err) {
+                        res.status(500).json({
+                            success: false,
+                            message: err.message,
+                        }
+                        );
+                    }
+                    else {
+if(product) 
+{console.log("image url",product.imageUrl);
+imageUrlArray.push(product.imageUrl);
+imageUrlArray.map(x=> {
+    console.log("test imageURL",x);
+    
+});}
+else console.log("not found");
+// product.map(x=>{
+//     console.log("test imageURL",x.imageUrl);
+// // })
+
+                    }
+                })
+            })
+
             res.status(200).json({
                 success: true,
                 data: {
                     data: docs,
                     total: docs.length,
+                    imageUrlArray: imageUrlArray,
                 },
             });
         }
