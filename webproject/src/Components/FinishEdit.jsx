@@ -625,7 +625,7 @@ export default class temp extends Component {
                                 <div className="alert alert-danger" role="alert">
                                     {this.state.errMessage}
                                 </div>
-                            ) : null}
+                            ) : null} 
                         </div>
                     </form>
                 </div>

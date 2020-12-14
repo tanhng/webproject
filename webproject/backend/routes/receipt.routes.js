@@ -50,6 +50,8 @@ receiptsRouter.post(('/createReceipt'), async (req, res) => {
                         let newReceipt = new receiptModel({
                             userEmail: req.body.email,
                             car_id: req.body.productID,
+                            imageUrl: req.body.imageUrl,
+                            car_name: req.body.car_name,
                             soNgayThue: req.body.soNgay,
                             dateStart: ngayThue,
                             status: 0,

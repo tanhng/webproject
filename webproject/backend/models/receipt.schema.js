@@ -9,6 +9,14 @@ const receiptSchema= new mongoose.Schema({
         type: String,
         required:true,
     },
+    imageUrl:{
+        type:String,
+        required:true,
+    },
+    car_name:{
+        type:String,
+        required: true,
+    },
     dateStart:{
         type: Date,
         required:true,

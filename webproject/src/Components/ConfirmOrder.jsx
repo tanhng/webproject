@@ -8,6 +8,8 @@ export default class ConfirmOrder extends Component {
 
         this.state = {
             currentID: '',
+            imageUrl:'',
+            car_name:'',
             email: '',
             soNgay: '',
             dateStart: '',
@@ -51,6 +53,8 @@ export default class ConfirmOrder extends Component {
                 this.setState({
                     currentItem: data.product,
                     price: data.product.price,
+                    imageUrl:data.product.imageUrl,
+                    car_name:data.product.name,
                 });
                 console.log('data frontend login', data.product.price);
                 console.log("test12", data.dateStart);
@@ -93,7 +97,9 @@ export default class ConfirmOrder extends Component {
                     productID: this.state.currentID,
                     soNgay: this.state.soNgay,
                     dateStart: this.state.dateStart,
-                    price: this.state.price
+                    price: this.state.price,
+                    imageUrl: this.state.imageUrl,
+                    car_name:this.state.car_name,
                 }),
             }).then((res) => { return res.json(); });
             if (!data.success) {

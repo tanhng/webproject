@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
-
+import { Button, Modal } from 'react-bootstrap';
 class Purchase extends Component {
 
   constructor(props) {
@@ -459,6 +459,7 @@ class Purchase extends Component {
                   {item.status == 0 ? (
                     <button type="button" class="btn btn-success" onClick={() => this.handleButtonClick(item._id)}>Gui</button>
                   ) : null}
+
                 </div>
               );
             })}
