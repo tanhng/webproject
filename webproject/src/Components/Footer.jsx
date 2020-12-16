@@ -13,13 +13,13 @@ export default class Footer extends Component {
                             <div className="col-lg-3 footer_col">
                                 <div className="footer_column footer_contact">
                                     <div className="logo_container">
-                                        <div className="logo"><a href="#">OneTech</a></div>
+                                        <div className="logo"><a href="#">HESPI AUTO</a></div>
                                     </div>
                                     <div className="footer_title">Got Question? Call Us 24/7</div>
                                     <div className="footer_phone">+38 068 005 3570</div>
                                     <div className="footer_contact_text">
-                                        <p>17 Princess Road, London</p>
-                                        <p>Grester London NW18JR, UK</p>
+                                        <p>401 D9, Hespi</p>
+                                        <p>工科大学, ベトナム</p>
                                     </div>
                                     <div className="footer_social">
                                         <ul>
@@ -36,13 +36,12 @@ export default class Footer extends Component {
                                 <div className="footer_column">
                                     <div className="footer_title">Find it Fast</div>
                                     <ul className="footer_list">
-                                        <li><a href="#">Computers &amp; Laptops</a></li>
-                                        <li><a href="#">Cameras &amp; Photos</a></li>
-                                        <li><a href="#">Hardware</a></li>
-                                        <li><a href="#">Smartphones &amp; Tablets</a></li>
-                                        <li><a href="#">TV &amp; Audio</a></li>
+                                        <li><a href="#">SUV  </a></li>
+                                        <li><a href="#">Sedan  </a></li>
+                                        <li><a href="#">Struck</a></li>
+                                        <li><a href="#">Bus  </a></li>
+                                        <li><a href="#">limousine </a></li>
                                     </ul>
-                                    <div className="footer_subtitle">Gadgets</div>
                                     <ul className="footer_list">
                                         <li><a href="#">Car Electronics</a></li>
                                     </ul>

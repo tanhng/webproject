@@ -34,51 +34,26 @@ export default class Header extends Component {
 
     handleCarChange = (event) => {
         this.setState({
-          car: event.target.value
+            car: event.target.value
         });
-      }
+    }
 
     handleFormSubmit = async (event) => {
         event.preventDefault();
         try {
-        //   const data = await fetch("http://localhost:5000/products/getItemsByName", {
-        //     method: "POST",
-        //     headers: {
-        //       'Content-Type': 'application/json'
-        //     },
-        //     credentials: 'include',
-        //     body: JSON.stringify({
-        //       car: this.state.car,
-        //     }),
-        //   }).then((res) => { return res.json(); });
-        //   console.log('data frontend login', data);
-        //   this.setState({
-        //     car: '',
-        //     data: [],
-        //   })
-        //   if (!data.success) {
-        //     this.setState({
-        //       errMessage: data.message,
-        //     });
-        //   } else {
-        //     this.setState({
-        //       data: data.data,
-        //     })
-    
-        //   }
-        window.location.href='/searchByName/'+this.state.car;
+            window.location.href = '/searchByName/' + this.state.car;
         } catch (err) {
-          this.setState({
-            errMessage: err.message
-          });
+            this.setState({
+                errMessage: err.message
+            });
         } finally {
-          console.log('test ne', this.state.data);
-          this.setState({
-            loading: false
-          });
+            console.log('test ne', this.state.data);
+            this.setState({
+                loading: false
+            });
         }
-    
-      }
+
+    }
 
     render() {
         let value = localStorage.getItem('email');
@@ -93,29 +68,22 @@ export default class Header extends Component {
                                     <div className="top_bar_contact_item"><div className="top_bar_icon"><img src="images/phone.png" alt="" /></div>+38 068 005 3570</div>
                                     <div className="top_bar_contact_item"><div className="top_bar_icon"><img src="images/mail.png" alt="" /></div><a href="mailto:tanhng@gmail.com">Team8Hedspi@gmail.com</a></div>
                                     <div className="top_bar_content ml-auto">
-                                        <div className="top_bar_menu">
-                                            <ul className="standard_dropdown top_bar_dropdown">
-                                                {localStorage.getItem('role') == 1 ? (
-                                                    <div>
-                                                        <li>
-                                                            <a href="#">Admin<i className="fas fa-chevron-down" /></a>
-                                                            <ul>
-                                                                <li><a href="/editcar">Edit Car</a></li>
-                                                                <li><a href="/purchase">Purchase</a></li>
-                                                                <li><a href="/addItem">Add Car</a></li>
-                                                            </ul>
-                                                        </li></div>
-
-                                                ) : null
-                                                }
-
-                                            </ul>
-                                        </div>
                                         {value ? (
                                             <div className="top_bar_user">
                                                 <div className="user_icon"><img src="images/user.svg" alt="" /></div>
-                                                <div><a>{value}</a></div>
-                                                <div> <a><button type="button" className="btn" style={{ fontSize: '14px' }} onClick={this.handleLogout}>Logout</button></a></div>
+                                                <div className="top_bar_menu">
+                                                    <ul className="standard_dropdown top_bar_dropdown">
+                                                        <div>
+                                                            <li>
+                                                                <a>{value}<i className="fas fa-chevron-down" /></a>
+                                                                <ul>
+                                                                    <li><a href="/orderHistory">Order History</a></li>
+                                                                    <li><button style={{ fontSize: '16px', width: '100%' }} onClick={this.handleLogout} className="btn btn-light btn-lg">Logout</button></li>
+                                                                </ul>
+                                                            </li>
+                                                        </div>
+                                                    </ul>
+                                                </div>                                                
                                             </div>
                                         ) :
                                             <div className="top_bar_user">
@@ -124,7 +92,21 @@ export default class Header extends Component {
                                                 <div><a href="/login" >Sign in</a></div>
                                             </div>
                                         }
-
+                                        <div className="top_bar_menu">
+                                            <ul className="standard_dropdown top_bar_dropdown">
+                                                {localStorage.getItem('role') == 1 ? (
+                                                    <div>
+                                                        <li>
+                                                            <a>Admin<i className="fas fa-chevron-down" /></a>
+                                                            <ul>
+                                                                <li><a href="/editcar">Edit Car</a></li>
+                                                                <li><a href="/purchase">Purchase</a></li>
+                                                                <li><a href="/addItem">Add Car</a></li>
+                                                            </ul>
+                                                        </li></div>
+                                                ) : null}
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -146,9 +128,9 @@ export default class Header extends Component {
                                         <div className="header_search_content">
                                             <div className="header_search_form_container">
                                                 <form onSubmit={this.handleFormSubmit} className="header_search_form clearfix">
-                                                   
+
                                                     <input type="text" required="required" className="header_search_input" value={this.state.car} onChange={this.handleCarChange} placeholder="Search for products..." />
-                                                 
+
                                                     <button type="submit" className="header_search_button trans_300" value="Submit"><img src="images/search.png" alt="" /></button>
                                                 </form>
                                             </div>
@@ -163,10 +145,13 @@ export default class Header extends Component {
                                             <div className="cart_container d-flex flex-row align-items-center justify-content-end">
                                                 <div className="cart_icon">
                                                     <img src="images/cart.png" alt="" />
-                                                    <div className="cart_count"><span></span></div>
+                                                    {localStorage.getItem('productID') ? (
+                                                        <div className="cart_count"><span>1</span></div>
+                                                    ) : <div className="cart_count"><span></span></div>}
+
                                                 </div>
                                                 <div className="cart_content">
-                                                    <div className="cart_text"><a href="#">Cart</a></div>
+                                                    <div className="cart_text"><a href="/confirmOrder">Cart</a></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -190,23 +175,6 @@ export default class Header extends Component {
                                             <ul className="cat_menu">
                                                 <li><a href="#">Computers &amp; Laptops <i className="fas fa-chevron-right ml-auto" /></a></li>
                                                 <li><a href="#">Cameras &amp; Photos<i className="fas fa-chevron-right" /></a></li>
-                                                <li className="hassubs">
-                                                    <a href="#">Hardware<i className="fas fa-chevron-right" /></a>
-                                                    <ul>
-                                                        <li className="hassubs">
-                                                            <a href="#">Menu Item<i className="fas fa-chevron-right" /></a>
-                                                            <ul>
-                                                                <li><a href="#">Menu Item<i className="fas fa-chevron-right" /></a></li>
-                                                                <li><a href="#">Menu Item<i className="fas fa-chevron-right" /></a></li>
-                                                                <li><a href="#">Menu Item<i className="fas fa-chevron-right" /></a></li>
-                                                                <li><a href="#">Menu Item<i className="fas fa-chevron-right" /></a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li><a href="#">Menu Item<i className="fas fa-chevron-right" /></a></li>
-                                                        <li><a href="#">Menu Item<i className="fas fa-chevron-right" /></a></li>
-                                                        <li><a href="#">Menu Item<i className="fas fa-chevron-right" /></a></li>
-                                                    </ul>
-                                                </li>
                                                 <li><a href="#">Smartphones &amp; Tablets<i className="fas fa-chevron-right" /></a></li>
                                                 <li><a href="#">TV &amp; Audio<i className="fas fa-chevron-right" /></a></li>
                                                 <li><a href="#">Gadgets<i className="fas fa-chevron-right" /></a></li>

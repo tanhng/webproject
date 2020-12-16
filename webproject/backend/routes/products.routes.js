@@ -125,30 +125,6 @@ productsRouter.post(('/updateItem'), async (req, res) => {
 
 productsRouter.get('/getItems', async (req, res) => {
     try {
-        //     {
-        //         console.log('test 2');
-        //         // get data
-        //         const result = await productModel.find({})
-        //         console.log('result ne', result);
-        //         const total = await productModel.find({}).countDocuments();
-        //         console.log('total', total);
-        //         res.status(200).json({
-        //             success: true,
-        //             data: {
-        //                 data: result,
-        //                 total: total,
-        //             },
-        //         });
-        //         console.log('test 3');
-        //     }
-        // }
-        // catch (error) {
-        //     res.status(500).json({
-        //         success: false,
-        //         message: error.message,
-        //     })
-        // }
-
         console.log('test1');
         // offset paging => pageNumber | pageSize => limit | skip
         const pageNumber = Number(req.query.pageNumber);
@@ -184,30 +160,6 @@ productsRouter.get('/getItems', async (req, res) => {
 
 productsRouter.get('/getItemsByType', async (req, res) => {
     try {
-        //     {
-        //         console.log('test 2');
-        //         // get data
-        //         const result = await productModel.find({})
-        //         console.log('result ne', result);
-        //         const total = await productModel.find({}).countDocuments();
-        //         console.log('total', total);
-        //         res.status(200).json({
-        //             success: true,
-        //             data: {
-        //                 data: result,
-        //                 total: total,
-        //             },
-        //         });
-        //         console.log('test 3');
-        //     }
-        // }
-        // catch (error) {
-        //     res.status(500).json({
-        //         success: false,
-        //         message: error.message,
-        //     })
-        // }
-
         console.log('test1');
         // offset paging => pageNumber | pageSize => limit | skip
         const pageNumber = Number(req.query.pageNumber);
@@ -243,30 +195,6 @@ productsRouter.get('/getItemsByType', async (req, res) => {
 
 productsRouter.get('/getItemsByName', async (req, res) => {
     try {
-        //     {
-        //         console.log('test 2');
-        //         // get data
-        //         const result = await productModel.find({})
-        //         console.log('result ne', result);
-        //         const total = await productModel.find({}).countDocuments();
-        //         console.log('total', total);
-        //         res.status(200).json({
-        //             success: true,
-        //             data: {
-        //                 data: result,
-        //                 total: total,
-        //             },
-        //         });
-        //         console.log('test 3');
-        //     }
-        // }
-        // catch (error) {
-        //     res.status(500).json({
-        //         success: false,
-        //         message: error.message,
-        //     })
-        // }
-
         console.log('test1');
         // offset paging => pageNumber | pageSize => limit | skip
         const pageNumber = Number(req.query.pageNumber);
@@ -302,8 +230,6 @@ productsRouter.get('/getItemsByName', async (req, res) => {
 
 productsRouter.get('/getItemsByOdometer', async (req, res) => {
     try {
-
-
         console.log('test1');
         const pageNumber = Number(req.query.pageNumber);
         const pageSize = Number(req.query.pageSize);
@@ -406,7 +332,6 @@ productsRouter.post('/getItemsByName', async (req, res) => {
     try {
         console.log('test10',)
         {
-
             productModel.find({ name: { $regex: '.*' + req.body.car + '.*' } }, function (err, product) {
                 if (err) {
                     res.status(500).json({
@@ -432,36 +357,5 @@ productsRouter.post('/getItemsByName', async (req, res) => {
         })
     }
 });
-
-
-// productsRouter.get('/viewDetail', async (req, res) => {
-//     try {
-
-//         {
-//             console.log('test 2');
-//             // get data
-//             const result = await productModel.find({})
-//             console.log('result ne', result);
-//             const total = await productModel.find({}).countDocuments();
-//             console.log('total', total);
-//             res.status(200).json({
-//                 success: true,
-//                 data: {
-//                     data: result,
-//                     total: total,
-//                 },
-//             });
-//             console.log('test 3');
-//         }
-//     }
-//     catch (error) {
-//         res.status(500).json({
-//             success: false,
-//             message: error.message,
-//         })
-//     }
-// });
-
-
 
 module.exports = productsRouter;
