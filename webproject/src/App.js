@@ -10,6 +10,7 @@ import HomePage from '../src/Components/HomePage'
 import RegisterPage from '../src/Components/RegisterPage';
 import LoginPage from '../src/Components/LoginPage';
 import Header from '../src/Components/Header';
+import Footer from '../src/Components/Footer';
 import Products from '../src/Components/Products';
 import temp from '../src/Components/temp';
 import temp2 from '../src/Components/temp2';
@@ -20,7 +21,10 @@ import ConfirmOrder from './Components/ConfirmOrder';
 import FinishPurchase from './Components/FinishPurchase';
 import Purchase from './Components/Purchase';
 import EditCar from './Components/EditCar';
+import SearchByType from './Components/SearchByType';
+import SearchByName from './Components/SearchByName';
 import FinishEdit from './Components/FinishEdit';
+import SearchByOdometer from './Components/SearchByOdometer';
 function App() {
   return (
 
@@ -40,9 +44,13 @@ function App() {
      {/* <Header></Header>
     <div className="outer">
       <div className="inner"> */}
+
+
+
+      
       <Header></Header>
         <Switch>
-          <Route exact path='/' component={HomePage} />
+          <Route exact path='/' component={Products} />
           {/* oke */}
           <Route path='/register' component={RegisterPage} />
           {/* oke */}
@@ -54,7 +62,7 @@ function App() {
           {/* <Route path='/addItem2' component={temp2} /> */}
           {/* oke */}
           <Route path='/addItem3/:id' component={temp3} />
-          
+          <Route path='/searchByType/:type' component={SearchByType}/>
           <Route path='/viewOrders' component={ViewOrders} />
           <Route path='/purchase' component={Purchase} />
           <Route exact path='/product/:id' component={ViewItem} />
@@ -62,7 +70,10 @@ function App() {
           <Route exact path='/confirmOrder' component={ConfirmOrder} />
           <Route exact path='/editcar' component={EditCar} />
           <Route exact path='/finishedit/:id' component={FinishEdit} />
+          <Route exact path='/searchByOdometer/:odometer' component={SearchByOdometer} />
+          <Route exact path='/searchByName/:name' component={SearchByName} />
         </Switch>
+        <Footer></Footer>
       {/* </div>
     </div> */}
   </Router>

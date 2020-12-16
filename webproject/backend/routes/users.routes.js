@@ -92,6 +92,7 @@ usersRouter.post('/login', async(req, res) => {
                 message: "Login Success",
                 data: {
                     email: data.email,
+                    role: data.role,
                 }
             });
         }

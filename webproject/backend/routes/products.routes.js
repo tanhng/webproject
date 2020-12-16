@@ -181,6 +181,196 @@ productsRouter.get('/getItems', async (req, res) => {
     }
 });
 
+
+productsRouter.get('/getItemsByType', async (req, res) => {
+    try {
+        //     {
+        //         console.log('test 2');
+        //         // get data
+        //         const result = await productModel.find({})
+        //         console.log('result ne', result);
+        //         const total = await productModel.find({}).countDocuments();
+        //         console.log('total', total);
+        //         res.status(200).json({
+        //             success: true,
+        //             data: {
+        //                 data: result,
+        //                 total: total,
+        //             },
+        //         });
+        //         console.log('test 3');
+        //     }
+        // }
+        // catch (error) {
+        //     res.status(500).json({
+        //         success: false,
+        //         message: error.message,
+        //     })
+        // }
+
+        console.log('test1');
+        // offset paging => pageNumber | pageSize => limit | skip
+        const pageNumber = Number(req.query.pageNumber);
+        const pageSize = Number(req.query.pageSize);
+        {
+            console.log('test 2');
+            // get data
+            const result = await productModel.find({type:req.query.type})
+                .skip((pageNumber - 1) * pageSize)
+                .limit(pageSize)
+                .lean();
+            console.log('result ne', result);
+            const total = await productModel.find({type:req.query.type}).countDocuments();
+            console.log('total', total);
+            res.status(200).json({
+                success: true,
+                data: {
+                    data: result,
+                    total: total,
+                },
+            });
+            console.log('test 3');
+        }
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+});
+
+
+productsRouter.get('/getItemsByName', async (req, res) => {
+    try {
+        //     {
+        //         console.log('test 2');
+        //         // get data
+        //         const result = await productModel.find({})
+        //         console.log('result ne', result);
+        //         const total = await productModel.find({}).countDocuments();
+        //         console.log('total', total);
+        //         res.status(200).json({
+        //             success: true,
+        //             data: {
+        //                 data: result,
+        //                 total: total,
+        //             },
+        //         });
+        //         console.log('test 3');
+        //     }
+        // }
+        // catch (error) {
+        //     res.status(500).json({
+        //         success: false,
+        //         message: error.message,
+        //     })
+        // }
+
+        console.log('test1');
+        // offset paging => pageNumber | pageSize => limit | skip
+        const pageNumber = Number(req.query.pageNumber);
+        const pageSize = Number(req.query.pageSize);
+        {
+            console.log('test 2');
+            // get data
+            const result = await productModel.find({name: { $regex: '.*' + req.query.name + '.*' }})
+                .skip((pageNumber - 1) * pageSize)
+                .limit(pageSize)
+                .lean();
+            console.log('result ne', result);
+            const total = await productModel.find({name: { $regex: '.*' + req.query.name + '.*' }}).countDocuments();
+            console.log('total', total);
+            res.status(200).json({
+                success: true,
+                data: {
+                    data: result,
+                    total: total,
+                },
+            });
+            console.log('test 3');
+        }
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+});
+
+
+productsRouter.get('/getItemsByOdometer', async (req, res) => {
+    try {
+
+
+        console.log('test1');
+        const pageNumber = Number(req.query.pageNumber);
+        const pageSize = Number(req.query.pageSize);
+        {
+            console.log('test 2');
+            // get data
+            if(req.query.odometer==1){
+                const result = await productModel.find({odometer:{$lte:5000}})
+                .skip((pageNumber - 1) * pageSize)
+                .limit(pageSize)
+                .lean();
+            console.log('result ne', result);
+            const total = await productModel.find({odometer:{$lte:5000}}).countDocuments();
+            console.log('total', total);
+            res.status(200).json({
+                success: true,
+                data: {
+                    data: result,
+                    total: total,
+                },
+            });
+            console.log('test 3000');
+            } else if (req.query.odometer==2) {
+                const result = await productModel.find({odometer:{$gte:5000,$lte:10000}})
+                .skip((pageNumber - 1) * pageSize)
+                .limit(pageSize)
+                .lean();
+            console.log('result ne', result);
+            const total = await productModel.find({odometer:{$gte:5000,$lte:10000}}).countDocuments();
+            console.log('total', total);
+            res.status(200).json({
+                success: true,
+                data: {
+                    data: result,
+                    total: total,
+                },
+            });
+            console.log('test 3000');
+            }
+            else if(req.query.odometer==3) {
+                const result = await productModel.find({odometer:{$gte:10000}})
+                .skip((pageNumber - 1) * pageSize)
+                .limit(pageSize)
+                .lean();
+            console.log('result ne', result);
+            const total = await productModel.find({odometer:{$gte:10000}}).countDocuments();
+            console.log('total', total);
+            res.status(200).json({
+                success: true,
+                data: {
+                    data: result,
+                    total: total,
+                },
+            });
+            console.log('test 3000');
+            }
+        }
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+});
+
+
 productsRouter.get('/getItemByID', async (req, res) => {
     try {
         console.log('test10',)
