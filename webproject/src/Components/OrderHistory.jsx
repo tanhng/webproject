@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-
-const pageSize = 2;
+ 
+const pageSize = 8;
 
 class OrderHistory extends Component {
 
@@ -167,7 +167,7 @@ class OrderHistory extends Component {
                                                                 //     <li className="product_mark product_new">new</li>
                                                                 // </ul>
                                                             }
-                                                            <button type="button" class="btn btn-success" onClick={() => { this.handleModalChange() }}>Gui</button>
+                                                            <button type="button" class="btn btn-success" onClick={() => { this.handleModalChange() }}>View</button>
                                                             <Modal show={this.state.show} onHide={() => { this.handleModalChange() }}>
                                                                 <Modal.Header closeButton> ORDER </Modal.Header>
                                                                 <Modal.Body>

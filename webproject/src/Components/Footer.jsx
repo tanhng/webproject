@@ -18,7 +18,7 @@ export default class Footer extends Component {
                                     <div className="footer_title">Got Question? Call Us 24/7</div>
                                     <div className="footer_phone">+38 068 005 3570</div>
                                     <div className="footer_contact_text">
-                                        <p>401 D9, Hespi</p>
+                                        <p>401 D9, Hedspi</p>
                                         <p>工科大学, ベトナム</p>
                                     </div>
                                     <div className="footer_social">
@@ -82,7 +82,7 @@ export default class Footer extends Component {
                             <div className="col">
                                 <div className="copyright_container d-flex flex-sm-row flex-column align-items-center justify-content-start">
                                     <div className="copyright_content">{/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
-                    Copyright © All rights reserved | This template is made with <i className="fa fa-heart" aria-hidden="true" /> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    Copyright © All rights reserved by Hedspi Developers
                                         {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
                                     </div>
                                     <div className="logos ml-sm-auto">

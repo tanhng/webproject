@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 const maxFileSize = 5000000;
 const imageFileRegex = /\.(gif|jpg|jpeg|tiff|png)$/i;
-export default class temp extends Component {
+export default class AddItem extends Component {
     constructor(props) {
         super(props)
 
@@ -104,7 +104,7 @@ export default class temp extends Component {
                 });
             } else {
                 //save data to localStorage
-                window.localStorage.setItem("email", data.data.email);
+                // window.localStorage.setItem("email", data.data.email);
                 window.location.href = "/";
             }
         } catch (err) {
@@ -203,7 +203,7 @@ export default class temp extends Component {
                                     {/* <label style={{ fontSize: '16px' }} htmlFor="exampleFormControlSelect2">Choose your car type</label> */}
                                     <select className="form-control form-control-lg" name="type" value={this.state.type} onChange={this.handleChange} required>
                                         <option>Truck</option>
-                                        <option>Home Car</option>
+                                        <option>Sedan</option>
                                         <option>Bus</option>
                                     </select>
                                 </div>

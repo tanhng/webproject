@@ -60,7 +60,7 @@ receiptsRouter.post(('/createReceipt'), async (req, res) => {
                         })
 
                         await newReceipt.save();
-                        productModel.findByIdAndUpdate(req.body.productID, { "status": 1 }, function (err, result) {
+                        productModel.findByIdAndUpdate(req.body.productID, { "status": 1,$inc: { soLanThue: 1 }  }, function (err, result) {
 
                             if (err) {
                                 res.status(500).json({

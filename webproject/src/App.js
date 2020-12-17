@@ -6,15 +6,13 @@ import {
   Route,
   //Link
 } from "react-router-dom";
-import HomePage from '../src/Components/HomePage'
+import EditProfile from '../src/Components/EditProfile';
 import RegisterPage from '../src/Components/RegisterPage';
 import LoginPage from '../src/Components/LoginPage';
 import Header from '../src/Components/Header';
 import Footer from '../src/Components/Footer';
 import Products from '../src/Components/Products';
-import temp from '../src/Components/temp';
-import temp2 from '../src/Components/temp2';
-import temp3 from '../src/Components/temp3';
+import AddItem from './Components/AddItem';
 import ViewItem from '../src/Components/ViewItem';
 import ViewOrders from '../src/Components/ViewOrders';
 import ConfirmOrder from './Components/ConfirmOrder';
@@ -59,10 +57,10 @@ function App() {
           {/* oke */}
           <Route  exact path='/products' component={Products} />
           {/* oke */}
-          <Route path='/addItem' component={temp} />
-          {/* <Route path='/addItem2' component={temp2} /> */}
+          <Route path='/addItem' component={AddItem} />
           {/* oke */}
-          <Route path='/addItem3/:id' component={temp3} />
+          <Route path='/editProfile' component={EditProfile} />
+          <Route path='/viewItem/:id' component={ViewItem} />
           <Route path='/searchByType/:type' component={SearchByType}/>
           <Route path='/viewOrders' component={ViewOrders} />
           <Route path='/purchase' component={Purchase} />

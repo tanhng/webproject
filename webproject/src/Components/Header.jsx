@@ -57,6 +57,7 @@ export default class Header extends Component {
 
     render() {
         let value = localStorage.getItem('email');
+        let profileUrl = "/editProfile";
         return (
             <div>
                 <header className="header">
@@ -77,6 +78,7 @@ export default class Header extends Component {
                                                             <li>
                                                                 <a>{value}<i className="fas fa-chevron-down" /></a>
                                                                 <ul>
+                                                                    <li><a href={profileUrl}>View Profile</a></li>
                                                                     <li><a href="/orderHistory">Order History</a></li>
                                                                     <li><button style={{ fontSize: '16px', width: '100%' }} onClick={this.handleLogout} className="btn btn-light btn-lg">Logout</button></li>
                                                                 </ul>
@@ -173,14 +175,14 @@ export default class Header extends Component {
                                                 <div className="cat_menu_text">categories</div>
                                             </div>
                                             <ul className="cat_menu">
-                                                <li><a href="#">Computers &amp; Laptops <i className="fas fa-chevron-right ml-auto" /></a></li>
-                                                <li><a href="#">Cameras &amp; Photos<i className="fas fa-chevron-right" /></a></li>
-                                                <li><a href="#">Smartphones &amp; Tablets<i className="fas fa-chevron-right" /></a></li>
-                                                <li><a href="#">TV &amp; Audio<i className="fas fa-chevron-right" /></a></li>
-                                                <li><a href="#">Gadgets<i className="fas fa-chevron-right" /></a></li>
+                                                <li><a href="/searchByType/Truck">Trucks <i className="fas fa-chevron-right ml-auto" /></a></li>
+                                                <li><a href="/searchByType/Sedan">Sedan<i className="fas fa-chevron-right" /></a></li>
+                                                <li><a href="/searchByType/Bus">Bus<i className="fas fa-chevron-right" /></a></li>
+                                                <li><a href="/searchByType/Suv">Suv<i className="fas fa-chevron-right" /></a></li>
+                                                {/* <li><a href="#">Gadgets<i className="fas fa-chevron-right" /></a></li>
                                                 <li><a href="#">Car Electronics<i className="fas fa-chevron-right" /></a></li>
                                                 <li><a href="#">Video Games &amp; Consoles<i className="fas fa-chevron-right" /></a></li>
-                                                <li><a href="#">Accessories<i className="fas fa-chevron-right" /></a></li>
+                                                <li><a href="#">Accessories<i className="fas fa-chevron-right" /></a></li> */}
                                             </ul>
                                         </div>
                                         {/* Main Nav Menu */}

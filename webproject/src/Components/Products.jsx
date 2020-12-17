@@ -19,7 +19,30 @@ export default class Products extends Component {
 
 
 
+  handlePrevClick = () => {
+		if (this.state.currentPageNumber > 1) {
+			// getData
+			this.getData(this.state.currentPageNumber - 1);
 
+			// setState
+			this.setState({
+				currentPageNumber: this.state.currentPageNumber - 1
+			});
+		}
+	};
+
+	handleNextClick = () => {
+		const maxPageNumber = Math.ceil(this.state.total / pageSize);
+		if (this.state.currentPageNumber < maxPageNumber) {
+			// getData
+			this.getData(this.state.currentPageNumber + 1);
+
+			// setState
+			this.setState({
+				currentPageNumber: this.state.currentPageNumber + 1
+			});
+		}
+	};
 
   getData = async (pageNumber) => {
     try {
@@ -56,7 +79,7 @@ export default class Products extends Component {
 
   handleItemClick = (item) => {
     console.log('hello', item);
-    var url = '/addItem3/' + item;
+    var url = '/viewItem/' + item;
     window.location.href = url;
   };
 
@@ -107,24 +130,9 @@ export default class Products extends Component {
                         <li><a href="/searchByType/Sedan">Sedan</a></li>
                         <li><a href="/searchByType/Suv">SUV</a></li>
                         <li><a href="/searchByType/Bus">Bus</a></li>
-                        {/* <li><a href="#">Odometer: Less than 5000</a></li>
-                        <li><a href="#">Gadgets</a></li>
-                        <li><a href="#">Car Electronics</a></li>
-                        <li><a href="#">Video Games &amp; Consoles</a></li>
-                        <li><a href="#">Accessories</a></li> */}
                       </ul>
                     </div>
-                    {/* <div className="sidebar_section">
-                      <div className="sidebar_subtitle color_subtitle">Color</div>
-                      <ul className="colors_list">
-                        <li className="color"><a href="#" style={{ background: '#b19c83' }} /></li>
-                        <li className="color"><a href="#" style={{ background: '#000000' }} /></li>
-                        <li className="color"><a href="#" style={{ background: '#999999' }} /></li>
-                        <li className="color"><a href="#" style={{ background: '#0e8ce4' }} /></li>
-                        <li className="color"><a href="#" style={{ background: '#df3b3b' }} /></li>
-                        <li className="color"><a href="#" style={{ background: '#ffffff', border: 'solid 1px #e1e1e1' }} /></li>
-                      </ul>
-                    </div> */}
+                   
                     <div className="sidebar_section">
                       <div className="sidebar_subtitle brands_subtitle">Brands</div>
                       <ul className="brands_list">
@@ -174,24 +182,26 @@ export default class Products extends Component {
                               }}
                             >
                               <div className="product_border" />
-                              <div className="product_image d-flex flex-column align-items-center justify-content-center"><img src={url} alt="" /></div>
+                              <div className="product_image d-flex flex-column align-items-center justify-content-center"><img src={url} alt="" height='300px' width='300px' /></div>
                               <div className="product_content">
-                                <div className="product_price">$225</div>
-                                <div className="product_name"><div><a href="#" tabIndex={0}>Philips BT6900A</a></div></div>
+                                <div className="product_price">{item.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }) + " / Tuần"}</div>
+                                <div className="product_name"><div><a href="#" tabIndex={0}>{item.name}</a></div></div>
                               </div>
                               <div className="product_fav"><i className="fas fa-heart" /></div>
                               <ul className="product_marks">
-                                <li className="product_mark product_discount">-25%</li>
+                                {/* <li className="product_mark product_discount">-25%</li> */}
                                 <li className="product_mark product_new">new</li>
                               </ul>
                               <div className="form-group row">
-                                <a onClick={() => this.handleItemClick(item._id)} className="btn btn-primary col-lg-4">Detail</a>
-                                {localStorage.getItem('role') == 1 ?
-                                  (
-                                    <a href={finisheditUrl} className="btn btn-success  col-lg-4">Edit</a>
-                                  ) : null}
+                                <a onClick={() => this.handleItemClick(item._id)} className="btn btn-primary">Detail</a>                                
                               </div>
+                              {localStorage.getItem('role') == 1 ?
+                                  (
+                                    <div className="col-lg-7">
+                                      <a href={finisheditUrl} className="btn btn-success">Edit</a>
+                                    </div>
 
+                                  ) : null}
                             </div>
                           );
                         })}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 //const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
-export default class RegisterPage extends Component {
+export default class EditProfile extends Component {
     constructor(props) {
         super(props)
 
@@ -15,6 +15,49 @@ export default class RegisterPage extends Component {
             repeatPass:'',
         }
     };
+
+
+    componentWillMount() {
+        if (localStorage.getItem("email"))
+            this.getData();
+    }
+
+    getData = async () => {
+        this.setState({
+            email: localStorage.getItem('email'),
+        })
+        try {
+            const data = await fetch(`http://localhost:5000/user/getUserByEmail?email=${localStorage.getItem('email')}`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+            }).then((res) => { return res.json(); });
+
+
+            console.log('data frontend login', data);
+            if (!data.success) {
+                this.setState({
+                    errMessage: data.message,
+                });
+
+            } else {
+                this.setState({
+                    name: data.data.data[0].name,
+                    phonenumber: data.data.data[0].phonenumber,
+                 });
+                console.log('data frontend login', data.data.data[0]);
+                // console.log("test12", data.dateStart);
+            }
+        } catch (error) {
+            window.alert(error.message);
+        }
+    };
+
+
+
+
 
     handleNameChange = (event) => {
         this.setState({
@@ -66,8 +109,8 @@ export default class RegisterPage extends Component {
         //     });
         // } else {
         this.setState({
-            name: "",
-            phonenumber: "",
+            // name: "",
+            // phonenumber: "",
             email: "",
             pass: "",
             errMessage: "",
@@ -76,7 +119,7 @@ export default class RegisterPage extends Component {
         });
 
         try {
-            const data = await fetch("http://localhost:5000/user/register", {
+            const data = await fetch("http://localhost:5000/user/editprofile", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -84,8 +127,8 @@ export default class RegisterPage extends Component {
                 credentials: "include",
                 body: JSON.stringify({
                     name: this.state.name,
+                    email: localStorage.getItem('email'),
                     phonenumber: this.state.phonenumber,
-                    email: this.state.email,
                     password: this.state.pass,
                     repeatPassword: this.state.repeatPass,
                 })
@@ -97,7 +140,6 @@ export default class RegisterPage extends Component {
                 });
             } else {
                 //save data to localStorage
-                window.localStorage.setItem("email", data.data.email);
                 window.location.href = "/";
             }
         } catch (err) {
@@ -129,32 +171,26 @@ export default class RegisterPage extends Component {
                         <div className="form-group row" >
                             <label style={{ fontSize: '16px', marginLeft: '15%' }} className="col-lg-2 col-form-label form-control-label">Name</label>
                             <div className="col-lg-7" >
-                                <input style={{ fontSize: '16px' }} className="form-control " type="text" name="name" value={this.state.name} onChange={this.handleNameChange} required />
+                                <input style={{ fontSize: '16px' }} className="form-control " type="text" name="name" value={this.state.name} onChange={this.handleNameChange} placeholder={this.state.name} required />
                             </div>
                         </div>
 
                         <div className="form-group row">
                             <label style={{ fontSize: '16px', marginLeft: '15%' }} className="col-lg-2 col-form-label form-control-label">Phone Number</label>
                             <div className="col-lg-7">
-                                <input style={{ fontSize: '16px' }} className="form-control" type="text" name="phonenumber" value={this.state.phonenumber} onChange={this.handlePhoneNumbChange} required />
-                            </div>
-                        </div>
-                        <div className="form-group row">
-                            <label style={{ fontSize: '16px', marginLeft: '15%' }} className="col-lg-2 col-form-label form-control-label">Email</label>
-                            <div className="col-lg-7">
-                                <input style={{ fontSize: '16px' }} className="form-control" type='email' name="email" value={this.state.email} onChange={this.handleEmailChange} required />
+                                <input style={{ fontSize: '16px' }} className="form-control" type="text" name="phonenumber" value={this.state.phonenumber} onChange={this.handlePhoneNumbChange} placeholder={this.state.phonenumber} required />
                             </div>
                         </div>
                         <div className="form-group row">
                             <label style={{ fontSize: '16px', marginLeft: '15%' }} className="col-lg-2 col-form-label form-control-label">Password</label>
                             <div className="col-lg-7">
-                                <input style={{ fontSize: '16px' }} className="form-control" type='password' name="password" value={this.state.pass} onChange={this.handlePasswordChange} required />
+                                <input style={{ fontSize: '16px' }} className="form-control" type='password' name="password" value={this.state.pass} onChange={this.handlePasswordChange} />
                             </div>
                         </div>
                         <div className="form-group row">
                             <label style={{ fontSize: '16px', marginLeft: '15%' }} className="col-lg-2 col-form-label form-control-label">Repeat Password</label>
                             <div className="col-lg-7">
-                                <input style={{ fontSize: '16px' }} className="form-control" type='password' name="password" value={this.state.repeatPass} onChange={this.handleRepeatPasswordChange} required />
+                                <input style={{ fontSize: '16px' }} className="form-control" type='password' name="password" value={this.state.repeatPass} onChange={this.handleRepeatPasswordChange} />
                             </div>
                         </div>
                         <div className="form-group row">

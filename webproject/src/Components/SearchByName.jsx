@@ -18,7 +18,30 @@ export default class SearchByName extends Component {
     }
 
 
+    handlePrevClick = () => {
+        if (this.state.currentPageNumber > 1) {
+            // getData
+            this.getData(this.state.currentPageNumber - 1);
 
+            // setState
+            this.setState({
+                currentPageNumber: this.state.currentPageNumber - 1
+            });
+        }
+    };
+
+    handleNextClick = () => {
+        const maxPageNumber = Math.ceil(this.state.total / pageSize);
+        if (this.state.currentPageNumber < maxPageNumber) {
+            // getData
+            this.getData(this.state.currentPageNumber + 1);
+
+            // setState
+            this.setState({
+                currentPageNumber: this.state.currentPageNumber + 1
+            });
+        }
+    };
 
 
     getData = async (pageNumber) => {
@@ -100,49 +123,34 @@ export default class SearchByName extends Component {
                     <div className="shop">
                         <div className="container">
                             <div className="row">
-                            <div className="col-lg-3">
-                  {/* Shop Sidebar */}
-                  <div className="shop_sidebar">
-                    <div className="sidebar_section">
-                      <div className="sidebar_title">Categories</div>
-                      <ul className="sidebar_categories">
-                        <li><a href="/searchByType/Truck">Truck</a></li>
-                        <li><a href="/searchByType/Sedan">Sedan</a></li>
-                        <li><a href="/searchByType/Suv">SUV</a></li>
-                        <li><a href="/searchByType/Bus">Bus</a></li>
-                        {/* <li><a href="#">Odometer: Less than 5000</a></li>
-                        <li><a href="#">Gadgets</a></li>
-                        <li><a href="#">Car Electronics</a></li>
-                        <li><a href="#">Video Games &amp; Consoles</a></li>
-                        <li><a href="#">Accessories</a></li> */}
-                      </ul>
-                    </div>
-                    {/* <div className="sidebar_section">
-                      <div className="sidebar_subtitle color_subtitle">Color</div>
-                      <ul className="colors_list">
-                        <li className="color"><a href="#" style={{ background: '#b19c83' }} /></li>
-                        <li className="color"><a href="#" style={{ background: '#000000' }} /></li>
-                        <li className="color"><a href="#" style={{ background: '#999999' }} /></li>
-                        <li className="color"><a href="#" style={{ background: '#0e8ce4' }} /></li>
-                        <li className="color"><a href="#" style={{ background: '#df3b3b' }} /></li>
-                        <li className="color"><a href="#" style={{ background: '#ffffff', border: 'solid 1px #e1e1e1' }} /></li>
-                      </ul>
-                    </div> */}
-                    <div className="sidebar_section">
-                      <div className="sidebar_subtitle brands_subtitle">Brands</div>
-                      <ul className="brands_list">
-                        <li className="brand"><a href="/searchByName/Ford">Ford</a></li>
-                        <li className="brand"><a href="/searchByName/Camry">Camry</a></li>
-                        <li className="brand"><a href="/searchByName/Toyota">Toyota</a></li>
-                        <li className="brand"><a href="/searchByName/Vin">Vin</a></li>
-                        <li className="brand"><a href="/searchByName/BMW">BMW</a></li>
-                        <li className="brand"><a href="/searchByName/Audi">Audi</a></li>
-                        <li className="brand"><a href="/searchByName/Kia">Kia</a></li>
-                        <li className="brand"><a href="/searchByName/Hyundai">Hyundai</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
+                                <div className="col-lg-3">
+                                    {/* Shop Sidebar */}
+                                    <div className="shop_sidebar">
+                                        <div className="sidebar_section">
+                                            <div className="sidebar_title">Categories</div>
+                                            <ul className="sidebar_categories">
+                                                <li><a href="/searchByType/Truck">Truck</a></li>
+                                                <li><a href="/searchByType/Sedan">Sedan</a></li>
+                                                <li><a href="/searchByType/Suv">SUV</a></li>
+                                                <li><a href="/searchByType/Bus">Bus</a></li>
+                                            </ul>
+                                        </div>
+
+                                        <div className="sidebar_section">
+                                            <div className="sidebar_subtitle brands_subtitle">Brands</div>
+                                            <ul className="brands_list">
+                                                <li className="brand"><a href="/searchByName/Ford">Ford</a></li>
+                                                <li className="brand"><a href="/searchByName/Camry">Camry</a></li>
+                                                <li className="brand"><a href="/searchByName/Toyota">Toyota</a></li>
+                                                <li className="brand"><a href="/searchByName/Vin">Vin</a></li>
+                                                <li className="brand"><a href="/searchByName/BMW">BMW</a></li>
+                                                <li className="brand"><a href="/searchByName/Audi">Audi</a></li>
+                                                <li className="brand"><a href="/searchByName/Kia">Kia</a></li>
+                                                <li className="brand"><a href="/searchByName/Hyundai">Hyundai</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className="col-lg-9">
                                     {/* Shop Content */}
                                     <div className="shop_content">
@@ -166,7 +174,7 @@ export default class SearchByName extends Component {
                                             <div className="product_grid_border" />
                                             <div className="row">
                                                 {this.state.data.map(item => {
-                                                    let finisheditUrl=`/finishedit/${item._id}`;
+                                                    let finisheditUrl = `/finishedit/${item._id}`;
                                                     let url = `http://localhost:5000${item.imageUrl}`;
                                                     return (
                                                         <div className="product_item is_new"
@@ -176,21 +184,25 @@ export default class SearchByName extends Component {
                                                             }}
                                                         >
                                                             <div className="product_border" />
-                                                            <div className="product_image d-flex flex-column align-items-center justify-content-center"><img src={url} alt="" /></div>
+                                                            <div className="product_image d-flex flex-column align-items-center justify-content-center"><img src={url} alt="" height='300px' width='300px' /></div>
                                                             <div className="product_content">
-                                                                <div className="product_price">$225</div>
-                                                                <div className="product_name"><div><a href="#" tabIndex={0}>Philips BT6900A</a></div></div>
+                                                                <div className="product_price">{item.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }) + " / Tuần"}</div>
+                                                                <div className="product_name"><div><a href="#" tabIndex={0}>{item.name}</a></div></div>
                                                             </div>
                                                             <div className="product_fav"><i className="fas fa-heart" /></div>
                                                             <ul className="product_marks">
-                                                                <li className="product_mark product_discount">-25%</li>
+                                                                {/* <li className="product_mark product_discount">-25%</li> */}
                                                                 <li className="product_mark product_new">new</li>
                                                             </ul>
-                                                            <a onClick={() => this.handleItemClick(item._id)} className="btn btn-primary">Detail</a>
+                                                            <div className="form-group row">
+                                                                <a onClick={() => this.handleItemClick(item._id)} className="btn btn-primary">Detail</a>
+                                                            </div>
                                                             {localStorage.getItem('role') == 1 ?
                                                                 (
+                                                                    <div className="col-lg-7">
+                                                                        <a href={finisheditUrl} className="btn btn-success">Edit</a>
+                                                                    </div>
 
-                                                                    <a href={finisheditUrl} className="btn btn-success">Edit</a>
                                                                 ) : null}
                                                         </div>
                                                     );

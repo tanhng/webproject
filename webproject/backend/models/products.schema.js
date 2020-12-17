@@ -1,5 +1,4 @@
 const mongoose= require('mongoose');
-
 const productsSchema= new mongoose.Schema({
     name:{
         type: String,
@@ -29,17 +28,14 @@ const productsSchema= new mongoose.Schema({
         type:Number,
         required:true,
     },
-    
     price:{
         type:Number,
         required:true,
     },
-    
     soLanThue:{
         type:Number,
         required:true,
     },
-    
     address:{
         type:String,
         required:true,
@@ -47,9 +43,5 @@ const productsSchema= new mongoose.Schema({
     dealerComments:{
         type:String,
     },
-    stars:{
-        type:Number,
-    }
 })
-
 module.exports=mongoose.model('Product',productsSchema);
