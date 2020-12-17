@@ -109,7 +109,7 @@ export default class RegisterPage extends Component {
                 
 
                 <div className="col-lg-12 text-lg-center">
-                    <h2>Edit Car</h2>
+                    <h2>Register</h2>
                     <br />
                     <br />
                 </div>
@@ -135,7 +135,7 @@ export default class RegisterPage extends Component {
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label style={{ fontSize: '16px', marginLeft: '15%' }} className="col-lg-2 col-form-label form-control-label">DealerComments</label>
+                            <label style={{ fontSize: '16px', marginLeft: '15%' }} className="col-lg-2 col-form-label form-control-label">Password</label>
                             <div className="col-lg-7">
                                 <input style={{ fontSize: '16px' }} className="form-control" type='password' name="password" value={this.state.pass} onChange={this.handlePasswordChange} required />
                             </div>

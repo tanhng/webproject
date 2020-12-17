@@ -76,6 +76,11 @@ export default class RegisterPage extends Component {
              <input type='text' placeholder='please input' value={this.state.car} onChange={this.handleCarChange}></input>
              <button type='submit'>search</button>
              </form> */}
+                    <div className="col-lg-12 text-lg-center">
+                        <h2>Login</h2>
+                        <br />
+                        <br />
+                    </div>
                     <div className="col-lg-10 push-lg-4 personal-info">
                         <form role="form" onSubmit={this.handleFormSubmit} >
                             <div className="form-group row" >

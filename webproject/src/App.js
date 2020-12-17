@@ -25,6 +25,7 @@ import SearchByType from './Components/SearchByType';
 import SearchByName from './Components/SearchByName';
 import FinishEdit from './Components/FinishEdit';
 import SearchByOdometer from './Components/SearchByOdometer';
+import OrderHistory from './Components/OrderHistory';
 function App() {
   return (
 
@@ -71,6 +72,7 @@ function App() {
           <Route exact path='/editcar' component={EditCar} />
           <Route exact path='/finishedit/:id' component={FinishEdit} />
           <Route exact path='/searchByOdometer/:odometer' component={SearchByOdometer} />
+          <Route exact path='/orderHistory' component={OrderHistory} />
           <Route exact path='/searchByName/:name' component={SearchByName} />
         </Switch>
         <Footer></Footer>

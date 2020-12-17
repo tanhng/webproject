@@ -2,6 +2,7 @@ const express = require('express');
 const bcryptjs = require('bcryptjs');
 
 const userModel=require('../models/users.schema');
+const receiptModel = require('../models/receipt.schema');
 
 const usersRouter = express.Router();
 
@@ -116,6 +117,41 @@ usersRouter.get('/logout' , (req, res) => {
             res.json({success: true});
         }
     });
+})
+
+usersRouter.post(('/orderHistory'), async (req,res)=>{
+    try {
+        
+        // offset paging => pageNumber | pageSize => limit | skip
+        const pageNumber = Number(req.query.pageNumber);
+        const pageSize = Number(req.query.pageSize);
+        {
+            
+            // get data
+            const result = await receiptModel.find({userEmail: req.body.email})
+                .skip((pageNumber - 1) * pageSize)
+                .limit(pageSize)
+                .lean();
+            const total = await receiptModel.find({userEmail: req.body.email}).countDocuments();
+            
+            res.status(200).json({
+                success: true,
+                data: {
+                    data: result,
+                    total: total,
+                },
+            });
+            
+        }
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+    
+    
 })
 
 module.exports =usersRouter;
