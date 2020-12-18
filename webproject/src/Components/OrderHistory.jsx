@@ -18,7 +18,7 @@ class OrderHistory extends Component {
 
     componentWillMount() {
         if (localStorage.getItem('email')) {
-            this.getData();
+            this.getData(1);
         }
         else {
             window.location.href = "/login";
@@ -28,14 +28,12 @@ class OrderHistory extends Component {
     getData = async (pageNumber) => {
         try {
             const result = await fetch(`http://localhost:5000/user/orderHistory?pageNumber=${pageNumber}&pageSize=${pageSize}`, {
-                method: 'POST',
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 credentials: 'include',
-                body: JSON.stringify({
-                    email: localStorage.getItem('email'),
-                }),
+                
             }).then(res => {
                 return res.json();
             });

@@ -37,20 +37,17 @@ export default class temp extends Component {
     getData = async () => {
         try {
             const result = await fetch(`http://localhost:5000/admin/checkMailAdmin`, {
-                method: 'POST',
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 credentials: 'include',
-                body: JSON.stringify({
-                    adminEmail: localStorage.getItem('email'),
-                }),
             }).then(res => {
                 return res.json();
             });
             if (!result.success) {
                 window.alert(result.message);
-                window.location.href = "/login";
+                window.location.href = "/";
             }
         } catch (error) {
             window.alert(error.message);

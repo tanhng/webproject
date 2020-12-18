@@ -20,10 +20,7 @@ usersRouter.post(('/signup'), (req, res) => {
 
 usersRouter.post(('/register'), async (req, res) => {
     try {
-        //validate email, password, fullname
-        //const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,5}$/
-
         if (!emailRegex.test(req.body.email)) {
             res.status(400).json({
                 success: false,
@@ -36,13 +33,13 @@ usersRouter.post(('/register'), async (req, res) => {
                 message: "Password  too short"
             });
         } else {
-            if (req.body.pass != req.body.repeatPassword) {
+            if (req.body.password != req.body.repeatPassword) {
                 res.status(400).json({
                     success: false,
                     message: "Password doesn't match"
                 });
             } else {
-                // check email exist
+                // check email exist 
                 let data = await userModel.findOne({ email: req.body.email }).lean();
                 if (data) {
                     res.status(400).json({
@@ -59,16 +56,13 @@ usersRouter.post(('/register'), async (req, res) => {
                         email: req.body.email,
                         password: hashPassword
                     })
-
                     await newUser.save()
                     res.status(201).json({
                         success: true,
                         data: newUser,
                     });
-
                 }
             }
-
         }
     } catch (error) {
         res.status(500).json({
@@ -94,25 +88,21 @@ usersRouter.post('/login', async (req, res) => {
         } else {
             req.session.currentUser = {
                 _id: data._id,
-                email: data.email
-            }
+                email: data.email }
             console.log(req.session.currentUser);
             res.status(200).json({
                 success: true,
                 message: "Login Success",
                 data: {
                     email: data.email,
-                    role: data.role,
-                }
-            });
-        }
+                    role: data.role,}
+            });}
     } catch (error) {
         res.status(500).json({
             success: false,
             message: error.message
         });
     }
-
 })
 
 usersRouter.get('/logout', (req, res) => {
@@ -133,16 +123,13 @@ usersRouter.get('/logout', (req, res) => {
 usersRouter.get('/getUserByEmail', async (req, res) => {
     try {
         {
-
-            const result = await userModel.find({email: req.query.email}).lean();
-            console.log('result get user by email', result);
+            const result = await userModel.find({email: req.session.currentUser.email}).lean();
             res.status(200).json({
                 success: true,
                 data: {
                     data: result,
                 },
             });
-            console.log('test 3');
         }
     }
     catch (error) {
@@ -159,12 +146,12 @@ usersRouter.post(('/editprofile'), async (req, res) => {
  
         // offset paging => pageNumber | pageSize => limit | skip
         {
-
+            console.log("session",req.session.currentUser);
             // get data
-            const result = await userModel.find({ email: req.body.email }).lean();
-            console.log('result',req.body);
+            // const result = await userModel.find({ email: req.session.currentUser.email }).lean();
+            // console.log('result',req.body);
                 if(!req.body.password){
-                    userModel.findOneAndUpdate({email:req.body.email},
+                    userModel.findOneAndUpdate({email:req.session.currentUser.email},
                         { "name": req.body.name ,
                          "phonenumber": req.body.phonenumber ,
                     },
@@ -198,7 +185,7 @@ usersRouter.post(('/editprofile'), async (req, res) => {
                             });
                         } else {{
                                 const hashPassword = bcryptjs.hashSync(req.body.password, 10);
-                                userModel.findOneAndUpdate({email:req.body.email},
+                                userModel.findOneAndUpdate({email:req.session.currentUser.email},
                                     { "name": req.body.name ,
                                      "phonenumber": req.body.phonenumber ,
                                      "password": hashPassword,
@@ -247,7 +234,7 @@ usersRouter.post(('/editprofile'), async (req, res) => {
 })
 
 
-usersRouter.post(('/orderHistory'), async (req, res) => {
+usersRouter.get(('/orderHistory'), async (req, res) => {
     try {
  
         // offset paging => pageNumber | pageSize => limit | skip
@@ -256,12 +243,13 @@ usersRouter.post(('/orderHistory'), async (req, res) => {
         {
 
             // get data
-            const result = await receiptModel.find({ userEmail: req.body.email })
+            const result = await receiptModel.find({ userEmail: req.session.currentUser.email })
                 .skip((pageNumber - 1) * pageSize)
                 .limit(pageSize)
                 .lean();
-            const total = await receiptModel.find({ userEmail: req.body.email }).countDocuments();
-
+            var total = 0;
+            total = await receiptModel.find({ userEmail: req.session.currentUser.email }).countDocuments();
+            
             res.status(200).json({
                 success: true,
                 data: {

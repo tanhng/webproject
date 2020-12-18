@@ -4,7 +4,9 @@ import React, { Component } from 'react'
 export default class RegisterPage extends Component {
     constructor(props) {
         super(props)
-
+        if(localStorage.getItem("email")){
+            window.location.href = "/";
+        }
         this.state = {
             name: "",
             phonenumber: "",
@@ -95,7 +97,7 @@ export default class RegisterPage extends Component {
                 this.setState({
                     errMessage: data.message,
                 });
-            } else {
+            } else { 
                 //save data to localStorage
                 window.localStorage.setItem("email", data.data.email);
                 window.location.href = "/";

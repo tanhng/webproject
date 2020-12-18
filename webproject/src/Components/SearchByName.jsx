@@ -81,8 +81,7 @@ export default class SearchByName extends Component {
     };
 
     handleItemClick = (item) => {
-        console.log('hello', item);
-        var url = '/addItem3/' + item;
+        var url = '/viewItem/' + item;
         window.location.href = url;
     };
 

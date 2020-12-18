@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Button, Modal } from 'react-bootstrap';
 //const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
 export default class EditProfile extends Component {
@@ -12,7 +13,8 @@ export default class EditProfile extends Component {
             pass: "",
             errMessage: "",
             loading: true,
-            repeatPass:'',
+            repeatPass: '',
+            show: false,
         }
     };
 
@@ -27,7 +29,7 @@ export default class EditProfile extends Component {
             email: localStorage.getItem('email'),
         })
         try {
-            const data = await fetch(`http://localhost:5000/user/getUserByEmail?email=${localStorage.getItem('email')}`, {
+            const data = await fetch(`http://localhost:5000/user/getUserByEmail`, {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json'
@@ -46,7 +48,7 @@ export default class EditProfile extends Component {
                 this.setState({
                     name: data.data.data[0].name,
                     phonenumber: data.data.data[0].phonenumber,
-                 });
+                });
                 console.log('data frontend login', data.data.data[0]);
                 // console.log("test12", data.dateStart);
             }
@@ -55,8 +57,11 @@ export default class EditProfile extends Component {
         }
     };
 
-
-
+    handleModalChange = (event) => {
+        this.setState({
+            show: !this.state.show
+        });
+    }
 
 
     handleNameChange = (event) => {
@@ -114,7 +119,7 @@ export default class EditProfile extends Component {
             email: "",
             pass: "",
             errMessage: "",
-            repeatPass:'',
+            repeatPass: '',
             loading: true,
         });
 
@@ -159,15 +164,14 @@ export default class EditProfile extends Component {
         return (
             <div>
                 <div className="super_container">
-                
 
-                <div className="col-lg-12 text-lg-center">
-                    <h2>Register</h2>
-                    <br />
-                    <br />
-                </div>
-                <div className="col-lg-10 push-lg-4 personal-info">
-                    <form role="form" onSubmit={this.handleFormSubmit} >
+
+                    <div className="col-lg-12 text-lg-center">
+                        <h2>Register</h2>
+                        <br />
+                        <br />
+                    </div>
+                    <div className="col-lg-10 push-lg-4 personal-info">
                         <div className="form-group row" >
                             <label style={{ fontSize: '16px', marginLeft: '15%' }} className="col-lg-2 col-form-label form-control-label">Name</label>
                             <div className="col-lg-7" >
@@ -196,7 +200,40 @@ export default class EditProfile extends Component {
                         <div className="form-group row">
                             <label className="col-lg-5 col-form-label form-control-label" />
                             <div className="col-lg-5">
-                                <button style={{ fontSize: '16px' }} type="submit" className="btn btn-primary btn-lg btn-block" defaultValue="Save Changes">Submit</button>
+                                <button style={{ fontSize: '16px' }} type="submit" className="btn btn-primary btn-lg btn-block" onClick={() => { this.handleModalChange() }}>Submit</button>
+                                <Modal show={this.state.show} onHide={() => { this.handleModalChange() }}>
+                                    <Modal.Header closeButton> CONFIRM </Modal.Header>
+                                    <Modal.Body>
+                                        <h4>Your Changes</h4>
+                                        <div className="form-group row" >
+                                            <label style={{ marginLeft: '10%' }} className="col-lg-2 col-form-label form-control-label">User Email</label>
+                                            <div className="col-lg-7" >
+                                                <input className="form-control " value={this.state.email} required />
+                                            </div>
+                                        </div>
+                                        <div className="form-group row" >
+                                            <label style={{ marginLeft: '10%' }} className="col-lg-2 col-form-label form-control-label">Name</label>
+                                            <div className="col-lg-7" >
+                                                <input className="form-control " value={this.state.name} required />
+                                            </div>
+                                        </div>
+                                        <div className="form-group row" >
+                                            <label style={{ marginLeft: '10%' }} className="col-lg-2 col-form-label form-control-label">PhoneNumber</label>
+                                            <div className="col-lg-7" >
+                                                <input className="form-control " value={this.state.phonenumber} required />
+                                            </div>
+                                        </div>
+                                        <h3>Confirm your changes </h3>
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                        <Button onClick={() => { this.handleModalChange() }}>
+                                            Close
+                                        </Button>
+                                        <form onSubmit={this.handleFormSubmit}>
+                                            <button type="submit" className="btn btn-primary" onClick={() => { this.handleModalChange() }}>Submit</button>
+                                        </form>
+                                    </Modal.Footer>
+                                </Modal>
                             </div>
                             {this.state.errMessage ? (
                                 <div className="alert alert-danger" role="alert">
@@ -204,8 +241,8 @@ export default class EditProfile extends Component {
                                 </div>
                             ) : null}
                         </div>
-                    </form>
-                </div>
+
+                    </div>
                 </div>
             </div >
         )

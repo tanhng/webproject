@@ -158,42 +158,33 @@ receiptsRouter.get('/getOrders', async (req, res) => {
     }
 });
 
-receiptsRouter.post(('/getInfoOrder'), async (req, res) => {
+receiptsRouter.get(('/getInfoOrder'), async (req, res) => {
     try {
-        {
-            userModel.find({ email: req.body.email }, function (err, user) {
+            userModel.find({ email: req.session.currentUser.email }, function (err, user) {
                 if (err) {
                     res.status(500).json({
                         success: false,
                         message: error.message,
-                    }
-                    );
+                    });
                 }
                 else {
-                    console.log('test12', user);
-
-                    productModel.findById(req.body.productID, function (err, product) {
+                    productModel.findById(req.query.productID, function (err, product) {
                         if (err) {
                             res.status(500).json({
                                 success: false,
                                 message: error.message,
-                            }
-                            );
+                            });
                         }
                         else {
-                            console.log('test11', product);
                             res.status(200).json({
                                 success: true,
                                 user: user,
                                 product: product,
                                 dateStart: new Date(),
                             });
-                        }
-                    });
+                        }});
                 }
             })
-
-        }
     }
     catch (error) {
         res.status(500).json({

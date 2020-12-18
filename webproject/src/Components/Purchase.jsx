@@ -25,25 +25,20 @@ class Purchase extends Component {
   getData = async () => {
     // console.log("test url", window.location.href);
     // console.log("test2", window.location.href.slice(31));
-    this.setState({
-      adminEmail: localStorage.getItem('email'),
-    })
+    
     try {
       const result = await fetch(`http://localhost:5000/admin/checkMailAdmin`, {
-        method: 'POST',
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json'
         },
         credentials: 'include',
-        body: JSON.stringify({
-          adminEmail: localStorage.getItem('email'),
-        }),
       }).then(res => {
         return res.json();
       });
       if (!result.success) {
         window.alert(result.message);
-        window.location.href = "/login";
+        window.location.href = "/";
       }
     } catch (error) {
       window.alert(error.message);
@@ -69,7 +64,7 @@ class Purchase extends Component {
           email: this.state.email,
         }),
       }).then((res) => { return res.json(); });
-      console.log('data frontend login', data);
+      
       this.setState({
         email: '',
         data: [],
@@ -82,7 +77,7 @@ class Purchase extends Component {
         this.setState({
           data: data.data.data,
         })
-        console.log('test ne', this.state.data);
+        
       }
     } catch (err) {
       this.setState({
@@ -108,30 +103,16 @@ class Purchase extends Component {
     return (
       <div>
         <div className="super_container">
-        
+
           <div class="list-group">
-          <div className="header_search_form_container">
-                                             <form onSubmit={this.handleFormSubmit} className="header_search_form clearfix">
-                            {/* <form action="#" className="header_search_form clearfix"> */}
-                            <input type="email" required="required" className="header_search_input" value={this.state.email} onChange={this.handleEmailChange} placeholder="Search for products..." />
-                            {/* <input type='text' placeholder='please input' ></input> */}
-                            <div className="custom_dropdown">
-                              <div className="custom_dropdown_list">
-                                <span className="custom_dropdown_placeholder clc">All Categories</span>
-                                <i className="fas fa-chevron-down" />
-                                <ul className="custom_list clc">
-                                  <li><a className="clc" href="#">All Categories</a></li>
-                                  <li><a className="clc" href="#">Computers</a></li>
-                                  <li><a className="clc" href="#">Laptops</a></li>
-                                  <li><a className="clc" href="#">Cameras</a></li>
-                                  <li><a className="clc" href="#">Hardware</a></li>
-                                  <li><a className="clc" href="#">Smartphones</a></li>
-                                </ul>
-                              </div>
-                            </div>
-                            <button type="submit" className="header_search_button trans_300" value="Submit"><img src="images/search.png" alt="" /></button>
-                          </form>
-                                            </div>
+            <div className="header_search_form_container">
+              <form onSubmit={this.handleFormSubmit} className="header_search_form clearfix">
+                {/* <form action="#" className="header_search_form clearfix"> */}
+                <input type="email" required="required" className="header_search_input" value={this.state.email} onChange={this.handleEmailChange} placeholder="Search for products..." />
+                
+                <button type="submit" className="header_search_button trans_300" value="Submit"><img src="images/search.png" alt="" /></button>
+              </form>
+            </div>
             <div className="row">
               {this.state.data.map(item => {
                 console.log(item);
@@ -146,17 +127,17 @@ class Purchase extends Component {
                     <div className="product_border" />
                     <div className="product_image d-flex flex-column align-items-center justify-content-center"><img src={url} alt="" /></div>
                     <div className="product_content">
-                      <div className="product_price">$225</div>
-                      <div className="product_name"><div><a href="#" tabIndex={0}>Philips BT6900A</a></div></div>
+                      <div className="product_price">{item.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</div>
+                      <div className="product_name"><div><a href="#" tabIndex={0}>{item.car_name}</a></div></div>
                     </div>
                     <div className="product_fav"><i className="fas fa-heart" /></div>
                     <ul className="product_marks">
-                      <li className="product_mark product_discount">-25%</li>
+                      {/* <li className="product_mark product_discount">-25%</li> */}
                       <li className="product_mark product_new">new</li>
                     </ul>
-                    {item.status == 0 ? (
-                      <button type="button" class="btn btn-success" onClick={() => this.handleButtonClick(item._id)}>Gui</button>
-                    ) : null}
+
+                    <button type="button" class="btn btn-success" onClick={() => this.handleButtonClick(item._id)}>Gui</button>
+
 
                   </div>
                 );

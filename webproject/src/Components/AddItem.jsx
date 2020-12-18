@@ -21,6 +21,36 @@ export default class AddItem extends Component {
         }
     };
 
+
+    componentWillMount() {
+        if (localStorage.getItem('email')) {
+          this.getData();
+        }
+        else {
+          window.location.href = "/login";
+        }
+      }
+    
+      getData = async () => {
+        try {
+          const result = await fetch(`http://localhost:5000/admin/checkMailAdmin`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+          }).then(res => {
+            return res.json();
+          });
+          if (!result.success) {
+            window.alert(result.message);
+            window.location.href = "/";
+          }
+        } catch (error) {
+          window.alert(error.message);
+        }
+      };
+
     handleFileChange = (event) => {
         this.setState({
             successmessage: '',

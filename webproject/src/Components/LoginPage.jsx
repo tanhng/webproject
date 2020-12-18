@@ -3,13 +3,14 @@ import React, { Component } from 'react'
 export default class RegisterPage extends Component {
     constructor(props) {
         super(props)
-
+        if(localStorage.getItem("email")){
+            window.location.href = "/";
+        }
         this.state = {
             email: "",
             pass: "",
         }
     };
-
 
     handleEmailChange = (event) => {
         this.setState({
@@ -28,6 +29,7 @@ export default class RegisterPage extends Component {
     handleFormSubmit = async (event) => {
         event.preventDefault();
         try {
+            console.log(this.state.email);
             const data = await fetch("http://localhost:5000/user/login", {
                 method: "POST",
                 headers: {

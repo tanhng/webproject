@@ -70,6 +70,7 @@ export default class ViewItem extends Component {
   };
 
   render() {
+    
     let url = `http://localhost:5000${this.state.currentItem.imageUrl}`;
     let price = this.state.currentItem.price;
     return (
@@ -108,7 +109,7 @@ export default class ViewItem extends Component {
 
                   <div className="order_info d-flex flex-row">
                     <form action="#">
-                      <div className="product_price">{price}</div>
+                      <div className="product_price">{this.state.currentItem.price}VND</div>
                       <div className="button_container">
                         <button type="button" className="button cart_button" onClick={() => this.handleOrder()}>Add to Cart</button>
                         <div className="product_fav"><i className="fas fa-heart" /></div>

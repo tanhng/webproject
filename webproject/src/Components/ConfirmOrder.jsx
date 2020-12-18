@@ -26,39 +26,32 @@ export default class ConfirmOrder extends Component {
     }
 
     getData = async () => {
+        let url="http://localhost:5000/receipts/getInfoOrder?productID="+localStorage.getItem('productID');
         this.setState({
             currentID: localStorage.getItem('productID'),
-            email: localStorage.getItem('email'),
         })
         try {
-            const data = await fetch("http://localhost:5000/receipts/getInfoOrder", {
-                method: "POST",
+            const data = await fetch(url, {
+                method: "GET",
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 credentials: 'include',
-                body: JSON.stringify({
-                    email: localStorage.getItem("email"),
-                    productID: localStorage.getItem("productID"),
-                }),
             }).then((res) => { return res.json(); });
-
-
-            console.log('data frontend login', data.product);
             if (!data.success) {
                 this.setState({
                     errMessage: data.message,
                 });
 
             } else {
+                console.log("test user",data.user);
                 this.setState({
                     currentItem: data.product,
                     price: data.product.price,
                     imageUrl: data.product.imageUrl,
                     car_name: data.product.name,
+                    email: data.user[0].email,
                 });
-                console.log('data frontend login', data.product.price);
-                console.log("test12", data.dateStart);
             }
         } catch (error) {
             window.alert(error.message);
@@ -105,7 +98,7 @@ export default class ConfirmOrder extends Component {
                 },
                 credentials: 'include',
                 body: JSON.stringify({
-                    email: localStorage.getItem("email"),
+                    email: this.state.email,
                     productID: this.state.currentID,
                     soNgay: this.state.soNgay,
                     dateStart: this.state.dateStart,
@@ -183,7 +176,7 @@ export default class ConfirmOrder extends Component {
                             <div className="form-group row">
                                 <label style={{ fontSize: '16px', marginLeft: '15%' }} className="col-lg-2 col-form-label form-control-label">Price</label>
                                 <div className="col-lg-7">
-                                    <input style={{ fontSize: '16px' }} className="form-control" value={this.state.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }) + " / Tuần"} required />
+                                    <input style={{ fontSize: '16px' }} className="form-control" value={this.state.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }) + " / Ngày"} required />
                                 </div>
                             </div>
                             <div className="form-group row">
@@ -256,7 +249,7 @@ export default class ConfirmOrder extends Component {
                                                 <div className="form-group row">
                                                     <label style={{ marginLeft: '10%' }} className="col-lg-2 col-form-label form-control-label">Price</label>
                                                     <div className="col-lg-7">
-                                                        <input className="form-control" value={this.state.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }) + " / Tuần"} required />
+                                                        <input className="form-control" value={this.state.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }) + " / Ngày"} required />
                                                     </div>
                                                 </div>
                                                 <div className="form-group row">
