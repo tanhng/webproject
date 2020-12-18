@@ -116,7 +116,7 @@ export default class SearchByType extends Component {
                         <div className="home_background parallax-window" data-parallax="scroll" data-image-src="images/shop_background.jpg" />
                         <div className="home_overlay" />
                         <div className="home_content d-flex flex-column align-items-center justify-content-center">
-                            <h2 className="home_title">Smartphones &amp; Tablets</h2>
+                            <h2 className="home_title">HEDSPI AUTO</h2>
                         </div>
                     </div>
                     {/* Shop */}
@@ -187,7 +187,7 @@ export default class SearchByType extends Component {
                                                             <div className="product_border" />
                                                             <div className="product_image d-flex flex-column align-items-center justify-content-center"><img src={url} alt="" height='300px' width='300px' /></div>
                                                             <div className="product_content">
-                                                                <div className="product_price">{item.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }) + " / Tuần"}</div>
+                                                                <div className="product_price">{item.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }) + " / Ngày"}</div>
                                                                 <div className="product_name"><div><a href="#" tabIndex={0}>{item.name}</a></div></div>
                                                             </div>
                                                             <div className="product_fav"><i className="fas fa-heart" /></div>

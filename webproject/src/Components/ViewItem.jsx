@@ -103,8 +103,9 @@ export default class ViewItem extends Component {
                   <div className="rating_r rating_r_4 product_rating"><i /><i /><i /><i /><i /></div>
                   <div className="product_text"><p>Color: {this.state.currentItem.color}</p></div>
                   <div className="product_text"><p>Seats: {this.state.currentItem.seats}</p></div>
+                  <div className="product_text"><p>Odometer: {this.state.currentItem.odometer} Kms</p></div>
                   <div className="product_text"><p>Rented: {this.state.currentItem.soLanThue} times</p></div>
-                  <div className="product_text"><p>Address: {this.state.currentItem.address} times</p></div>
+                  <div className="product_text"><p>Address: {this.state.currentItem.address} </p></div>
                   <div className="product_text"><p>DealerComments: {this.state.currentItem.dealerComments}</p></div>
 
                   <div className="order_info d-flex flex-row">
